@@ -1,0 +1,1006 @@
+﻿{
+  "paragraphs": [
+    {
+      "text": "val df1 = spark.read\r\n  .option(\"header\", \"true\")\r\n  .option(\"inferSchema\", \"true\")\r\n  .option(\"delimiter\", \";\")\r\n  .csv(\"/workspace/Programacion-Avanzada/2_MINEDUC_RegistrosAdministrativos_2022-2023Fin.csv\")\r\n\r\nval df2 = spark.read\r\n  .option(\"header\", \"true\")\r\n  .option(\"inferSchema\", \"true\")\r\n  .option(\"delimiter\", \";\")\r\n  .csv(\"/workspace/Programacion-Avanzada/registro-administrativo-historico_2009-2024-inicio.csv\")\r\n\r\nval df3 = spark.read\r\n  .option(\"header\", \"true\")\r\n  .option(\"inferSchema\", \"true\")\r\n  .option(\"delimiter\", \";\")\r\n  .csv(\"/workspace/Programacion-Avanzada/ineval_serestudiante2022_2023_2023diciembre.csv\")",
+      "user": "anonymous",
+      "dateUpdated": "2025-07-25T16:01:13+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mdf1\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m = [A�o Lectivo: string, AMIE: string ... 248 more fields]\n\u001b[1m\u001b[34mdf2\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m = [Anio_lectivo: string, Zona: string ... 25 more fields]\n\u001b[1m\u001b[34mdf3\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m = [ciclo: string, grado: int ... 56 more fields]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://10.0.5.2:4040/jobs/job?id=0",
+              "$$hashKey": "object:3099"
+            },
+            {
+              "jobUrl": "http://10.0.5.2:4040/jobs/job?id=1",
+              "$$hashKey": "object:3100"
+            },
+            {
+              "jobUrl": "http://10.0.5.2:4040/jobs/job?id=2",
+              "$$hashKey": "object:3101"
+            },
+            {
+              "jobUrl": "http://10.0.5.2:4040/jobs/job?id=3",
+              "$$hashKey": "object:3102"
+            },
+            {
+              "jobUrl": "http://10.0.5.2:4040/jobs/job?id=4",
+              "$$hashKey": "object:3103"
+            },
+            {
+              "jobUrl": "http://10.0.5.2:4040/jobs/job?id=5",
+              "$$hashKey": "object:3104"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1753393079613_902545567",
+      "id": "paragraph_1753393079613_902545567",
+      "dateCreated": "2025-07-24T21:37:59+0000",
+      "dateStarted": "2025-07-25T16:01:13+0000",
+      "dateFinished": "2025-07-25T16:01:27+0000",
+      "status": "FINISHED",
+      "focus": true,
+      "$$hashKey": "object:539"
+    },
+    {
+      "text": "val df1_clean = df1.select(\r\n  \"AMIE\",\r\n  \"A�o Lectivo\",\r\n  \"Provincia\",\r\n  \"Cant�n\",\r\n  \"Total_Estudiantes\",\r\n  \"Total_Docentes\"\r\n).withColumnRenamed(\"A�o Lectivo\", \"anio_lectivo\")",
+      "user": "anonymous",
+      "dateUpdated": "2025-07-25T16:01:27+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mdf1_clean\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m = [AMIE: string, anio_lectivo: string ... 4 more fields]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1753393410279_766406009",
+      "id": "paragraph_1753393410279_766406009",
+      "dateCreated": "2025-07-24T21:43:30+0000",
+      "dateStarted": "2025-07-25T16:01:27+0000",
+      "dateFinished": "2025-07-25T16:01:27+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:540"
+    },
+    {
+      "text": "val df2_clean = df2.select(\r\n  \"AMIE\",\r\n  \"Anio_lectivo\",\r\n  \"Provincia\",\r\n  \"Canton\",\r\n  \"Total_Estudiantes\",\r\n  \"Total_Docentes\"\r\n).withColumnRenamed(\"Anio_lectivo\", \"anio_lectivo\")",
+      "user": "anonymous",
+      "dateUpdated": "2025-07-25T16:01:27+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mdf2_clean\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m = [AMIE: string, anio_lectivo: string ... 4 more fields]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1753393452721_267103724",
+      "id": "paragraph_1753393452721_267103724",
+      "dateCreated": "2025-07-24T21:44:12+0000",
+      "dateStarted": "2025-07-25T16:01:27+0000",
+      "dateFinished": "2025-07-25T16:01:28+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:541"
+    },
+    {
+      "text": "val df3_clean = df3.select(\r\n  \"amie\",\r\n  \"ciclo\",\r\n  \"grado\",\r\n  \"estado_eval\",\r\n  \"isec\",  // Índice de desempeño escolar\r\n  \"imat\",  // Matemática\r\n  \"ilyl\",  // Lengua y Literatura\r\n  \"icn\",   // Ciencias Naturales\r\n  \"ies\"    // Estudios Sociales\r\n).withColumnRenamed(\"amie\", \"AMIE\")",
+      "user": "anonymous",
+      "dateUpdated": "2025-07-25T16:01:28+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mdf3_clean\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m = [AMIE: string, ciclo: string ... 7 more fields]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1753393484808_1356163173",
+      "id": "paragraph_1753393484808_1356163173",
+      "dateCreated": "2025-07-24T21:44:44+0000",
+      "dateStarted": "2025-07-25T16:01:28+0000",
+      "dateFinished": "2025-07-25T16:01:29+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:542"
+    },
+    {
+      "text": "// Renombra en df1_clean\r\nval df1_ready = df1_clean\r\n  .withColumnRenamed(\"Cant�n\", \"Canton\")\r\n  .withColumnRenamed(\"Provincia\", \"Provincia\") // (Solo si hay problemas con otros nombres)\r\n\r\nval df2_ready = df2_clean ",
+      "user": "anonymous",
+      "dateUpdated": "2025-07-25T16:01:29+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mdf1_ready\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m = [AMIE: string, anio_lectivo: string ... 4 more fields]\n\u001b[1m\u001b[34mdf2_ready\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m = [AMIE: string, anio_lectivo: string ... 4 more fields]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1753393549917_434104515",
+      "id": "paragraph_1753393549917_434104515",
+      "dateCreated": "2025-07-24T21:45:49+0000",
+      "dateStarted": "2025-07-25T16:01:29+0000",
+      "dateFinished": "2025-07-25T16:01:29+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:543"
+    },
+    {
+      "text": "val df12 = df1_ready.join(df2_ready, Seq(\"AMIE\", \"anio_lectivo\", \"Provincia\", \"Canton\"), \"outer\")",
+      "user": "anonymous",
+      "dateUpdated": "2025-07-25T16:01:29+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mdf12\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m = [AMIE: string, anio_lectivo: string ... 6 more fields]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1753393582034_1901101551",
+      "id": "paragraph_1753393582034_1901101551",
+      "dateCreated": "2025-07-24T21:46:22+0000",
+      "dateStarted": "2025-07-25T16:01:29+0000",
+      "dateFinished": "2025-07-25T16:01:30+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:544"
+    },
+    {
+      "text": "\r\nval df_final = df12.join(df3_clean, Seq(\"AMIE\"), \"outer\")",
+      "user": "anonymous",
+      "dateUpdated": "2025-07-25T16:01:30+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mdf_final\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m = [AMIE: string, anio_lectivo: string ... 14 more fields]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1753393609468_390672325",
+      "id": "paragraph_1753393609468_390672325",
+      "dateCreated": "2025-07-24T21:46:49+0000",
+      "dateStarted": "2025-07-25T16:01:30+0000",
+      "dateFinished": "2025-07-25T16:01:30+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:545"
+    },
+    {
+      "text": "df_final.show(10)",
+      "user": "anonymous",
+      "dateUpdated": "2025-07-25T16:01:30+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+----+------------+---------+------+-----------------+--------------+-----------------+--------------+-----+-----+-----------+----+----+----+----+----+\n|AMIE|anio_lectivo|Provincia|Canton|Total_Estudiantes|Total_Docentes|Total_Estudiantes|Total_Docentes|ciclo|grado|estado_eval|isec|imat|ilyl| icn| ies|\n+----+------------+---------+------+-----------------+--------------+-----------------+--------------+-----+-----+-----------+----+----+----+----+----+\n|null|        null|     null|  null|             null|          null|             null|          null| null| null|       null|null|null|null|null|null|\n|null|        null|     null|  null|             null|          null|             null|          null| null| null|       null|null|null|null|null|null|\n|null|        null|     null|  null|             null|          null|             null|          null| null| null|       null|null|null|null|null|null|\n|null|        null|     null|  null|             null|          null|             null|          null| null| null|       null|null|null|null|null|null|\n|null|        null|     null|  null|             null|          null|             null|          null| null| null|       null|null|null|null|null|null|\n|null|        null|     null|  null|             null|          null|             null|          null| null| null|       null|null|null|null|null|null|\n|null|        null|     null|  null|             null|          null|             null|          null| null| null|       null|null|null|null|null|null|\n|null|        null|     null|  null|             null|          null|             null|          null| null| null|       null|null|null|null|null|null|\n|null|        null|     null|  null|             null|          null|             null|          null| null| null|       null|null|null|null|null|null|\n|null|        null|     null|  null|             null|          null|             null|          null| null| null|       null|null|null|null|null|null|\n+----+------------+---------+------+-----------------+--------------+-----------------+--------------+-----+-----+-----------+----+----+----+----+----+\nonly showing top 10 rows\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://10.0.5.2:4040/jobs/job?id=6",
+              "$$hashKey": "object:3253"
+            },
+            {
+              "jobUrl": "http://10.0.5.2:4040/jobs/job?id=7",
+              "$$hashKey": "object:3254"
+            },
+            {
+              "jobUrl": "http://10.0.5.2:4040/jobs/job?id=8",
+              "$$hashKey": "object:3255"
+            },
+            {
+              "jobUrl": "http://10.0.5.2:4040/jobs/job?id=9",
+              "$$hashKey": "object:3256"
+            },
+            {
+              "jobUrl": "http://10.0.5.2:4040/jobs/job?id=10",
+              "$$hashKey": "object:3257"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1753393633596_1026963958",
+      "id": "paragraph_1753393633596_1026963958",
+      "dateCreated": "2025-07-24T21:47:13+0000",
+      "dateStarted": "2025-07-25T16:01:30+0000",
+      "dateFinished": "2025-07-25T16:01:41+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:546"
+    },
+    {
+      "text": "df1_ready.select(\"AMIE\", \"anio_lectivo\", \"Provincia\", \"Canton\").show(10, false)\r\ndf2_ready.select(\"AMIE\", \"anio_lectivo\", \"Provincia\", \"Canton\").show(10, false)\r\ndf3_clean.select(\"AMIE\").show(10, false)",
+      "user": "anonymous",
+      "dateUpdated": "2025-07-25T16:01:41+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+--------+-------------+------------------------------+------------+\n|AMIE    |anio_lectivo |Provincia                     |Canton      |\n+--------+-------------+------------------------------+------------+\n|01H01829|2022-2023 Fin|AZUAY                         |CUENCA      |\n|04H00462|2022-2023 Fin|CARCHI                        |ESPEJO      |\n|08H01180|2022-2023 Fin|SANTO DOMINGO DE LOS TSACHILAS|LA CONCORDIA|\n|08H01524|2022-2023 Fin|ESMERALDAS                    |ATACAMES    |\n|08H02161|2022-2023 Fin|ESMERALDAS                    |QUININDE    |\n|09H06652|2022-2023 Fin|GUAYAS                        |GUAYAQUIL   |\n|10H00070|2022-2023 Fin|IMBABURA                      |IBARRA      |\n|11H02033|2022-2023 Fin|LOJA                          |SARAGURO    |\n|12H02246|2022-2023 Fin|LOS RIOS                      |PUEBLOVIEJO |\n|17H04382|2022-2023 Fin|PICHINCHA                     |MEJIA       |\n+--------+-------------+------------------------------+------------+\nonly showing top 10 rows\n\n+--------+----------------+---------+------+\n|AMIE    |anio_lectivo    |Provincia|Canton|\n+--------+----------------+---------+------+\n|01B00002|2009-2010 Inicio|AZUAY    |CUENCA|\n|01B00010|2009-2010 Inicio|AZUAY    |CUENCA|\n|01B00019|2009-2010 Inicio|AZUAY    |CUENCA|\n|01B00020|2009-2010 Inicio|AZUAY    |CUENCA|\n|01B00021|2009-2010 Inicio|AZUAY    |CUENCA|\n|01B00022|2009-2010 Inicio|AZUAY    |CUENCA|\n|01B00023|2009-2010 Inicio|AZUAY    |CUENCA|\n|01B00027|2009-2010 Inicio|AZUAY    |CUENCA|\n|01B00028|2009-2010 Inicio|AZUAY    |CUENCA|\n|01B00029|2009-2010 Inicio|AZUAY    |CUENCA|\n+--------+----------------+---------+------+\nonly showing top 10 rows\n\n+--------+\n|AMIE    |\n+--------+\n|07H00020|\n|07H00020|\n|07H00020|\n|07H00020|\n|07H00020|\n|07H00020|\n|07H00020|\n|07H00020|\n|07H00020|\n|07H00020|\n+--------+\nonly showing top 10 rows\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://10.0.5.2:4040/jobs/job?id=11",
+              "$$hashKey": "object:3299"
+            },
+            {
+              "jobUrl": "http://10.0.5.2:4040/jobs/job?id=12",
+              "$$hashKey": "object:3300"
+            },
+            {
+              "jobUrl": "http://10.0.5.2:4040/jobs/job?id=13",
+              "$$hashKey": "object:3301"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1753393642355_464018984",
+      "id": "paragraph_1753393642355_464018984",
+      "dateCreated": "2025-07-24T21:47:22+0000",
+      "dateStarted": "2025-07-25T16:01:41+0000",
+      "dateFinished": "2025-07-25T16:01:43+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:547"
+    },
+    {
+      "text": "\r\nimport org.apache.spark.sql.functions._\r\n\r\nval df1_norm = df1_ready\r\n  .withColumn(\"AMIE\", trim(upper(col(\"AMIE\"))))\r\n  .withColumn(\"anio_lectivo\", trim(upper(col(\"anio_lectivo\"))))\r\n  .withColumn(\"Provincia\", trim(upper(col(\"Provincia\"))))\r\n  .withColumn(\"Canton\", trim(upper(col(\"Canton\"))))\r\n\r\nval df2_norm = df2_ready\r\n  .withColumn(\"AMIE\", trim(upper(col(\"AMIE\"))))\r\n  .withColumn(\"anio_lectivo\", trim(upper(col(\"anio_lectivo\"))))\r\n  .withColumn(\"Provincia\", trim(upper(col(\"Provincia\"))))\r\n  .withColumn(\"Canton\", trim(upper(col(\"Canton\"))))\r\n\r\nval df3_norm = df3_clean\r\n  .withColumn(\"AMIE\", trim(upper(col(\"AMIE\"))))\r\n",
+      "user": "anonymous",
+      "dateUpdated": "2025-07-25T16:01:43+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "import org.apache.spark.sql.functions._\n\u001b[1m\u001b[34mdf1_norm\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m = [AMIE: string, anio_lectivo: string ... 4 more fields]\n\u001b[1m\u001b[34mdf2_norm\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m = [AMIE: string, anio_lectivo: string ... 4 more fields]\n\u001b[1m\u001b[34mdf3_norm\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m = [AMIE: string, ciclo: string ... 7 more fields]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1753393782386_517862609",
+      "id": "paragraph_1753393782386_517862609",
+      "dateCreated": "2025-07-24T21:49:42+0000",
+      "dateStarted": "2025-07-25T16:01:43+0000",
+      "dateFinished": "2025-07-25T16:01:43+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:548"
+    },
+    {
+      "text": "import org.apache.spark.sql.functions._\r\n\r\nval cols_finales = Seq(\"AMIE\", \"anio_lectivo\", \"Provincia\", \"Canton\", \"Total_Estudiantes\", \"Total_Docentes\")\r\n\r\nval df3_union = df3_norm\r\n  .withColumn(\"anio_lectivo\", lit(null).cast(\"string\"))\r\n  .withColumn(\"Provincia\", lit(null).cast(\"string\"))\r\n  .withColumn(\"Canton\", lit(null).cast(\"string\"))\r\n  .withColumn(\"Total_Estudiantes\", lit(null).cast(\"int\"))\r\n  .withColumn(\"Total_Docentes\", lit(null).cast(\"int\"))\r\n  .select(cols_finales.head, cols_finales.tail: _*)",
+      "user": "anonymous",
+      "dateUpdated": "2025-07-25T16:01:43+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "import org.apache.spark.sql.functions._\n\u001b[1m\u001b[34mcols_finales\u001b[0m: \u001b[1m\u001b[32mSeq[String]\u001b[0m = List(AMIE, anio_lectivo, Provincia, Canton, Total_Estudiantes, Total_Docentes)\n\u001b[1m\u001b[34mdf3_union\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m = [AMIE: string, anio_lectivo: string ... 4 more fields]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1753393687429_1970382467",
+      "id": "paragraph_1753393687429_1970382467",
+      "dateCreated": "2025-07-24T21:48:07+0000",
+      "dateStarted": "2025-07-25T16:01:43+0000",
+      "dateFinished": "2025-07-25T16:01:44+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:549"
+    },
+    {
+      "text": "val df_final_union = df1_norm\r\n  .select(cols_finales.head, cols_finales.tail: _*)\r\n  .unionByName(\r\n    df2_norm.select(cols_finales.head, cols_finales.tail: _*)\r\n  )\r\n  .unionByName(\r\n    df3_union\r\n  )\r\n\r\ndf_final_union.show(10, false)",
+      "user": "anonymous",
+      "dateUpdated": "2025-07-25T16:01:44+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+--------+-------------+------------------------------+------------+-----------------+--------------+\n|AMIE    |anio_lectivo |Provincia                     |Canton      |Total_Estudiantes|Total_Docentes|\n+--------+-------------+------------------------------+------------+-----------------+--------------+\n|01H01829|2022-2023 FIN|AZUAY                         |CUENCA      |7.0              |3             |\n|04H00462|2022-2023 FIN|CARCHI                        |ESPEJO      |17.0             |3             |\n|08H01180|2022-2023 FIN|SANTO DOMINGO DE LOS TSACHILAS|LA CONCORDIA|79.0             |15            |\n|08H01524|2022-2023 FIN|ESMERALDAS                    |ATACAMES    |131.0            |25            |\n|08H02161|2022-2023 FIN|ESMERALDAS                    |QUININDE    |19.0             |3             |\n|09H06652|2022-2023 FIN|GUAYAS                        |GUAYAQUIL   |86.0             |5             |\n|10H00070|2022-2023 FIN|IMBABURA                      |IBARRA      |38.0             |12            |\n|11H02033|2022-2023 FIN|LOJA                          |SARAGURO    |4.0              |1             |\n|12H02246|2022-2023 FIN|LOS RIOS                      |PUEBLOVIEJO |10.0             |5             |\n|17H04382|2022-2023 FIN|PICHINCHA                     |MEJIA       |50.0             |9             |\n+--------+-------------+------------------------------+------------+-----------------+--------------+\nonly showing top 10 rows\n\n\u001b[1m\u001b[34mdf_final_union\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.Dataset[org.apache.spark.sql.Row]\u001b[0m = [AMIE: string, anio_lectivo: string ... 4 more fields]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://10.0.5.2:4040/jobs/job?id=14",
+              "$$hashKey": "object:3350"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1753393762475_224020118",
+      "id": "paragraph_1753393762475_224020118",
+      "dateCreated": "2025-07-24T21:49:22+0000",
+      "dateStarted": "2025-07-25T16:01:44+0000",
+      "dateFinished": "2025-07-25T16:01:45+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:550"
+    },
+    {
+      "text": "\r\ndf_final_union.write\r\n  .option(\"header\", \"true\")\r\n  .mode(\"overwrite\")\r\n  .csv(\"/workspace/Programacion-Avanzada/resultado_final_union.csv\")\r\n",
+      "user": "anonymous",
+      "dateUpdated": "2025-07-25T16:01:45+0000",
+      "progress": 33,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://10.0.5.2:4040/jobs/job?id=15",
+              "$$hashKey": "object:3360"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1753393882941_1337584255",
+      "id": "paragraph_1753393882941_1337584255",
+      "dateCreated": "2025-07-24T21:51:22+0000",
+      "dateStarted": "2025-07-25T16:01:45+0000",
+      "dateFinished": "2025-07-25T16:01:52+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:551"
+    },
+    {
+      "text": "df_final_union.createOrReplaceTempView(\"educacion_union\")",
+      "user": "anonymous",
+      "dateUpdated": "2025-07-25T16:01:52+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1753393898820_1472823513",
+      "id": "paragraph_1753393898820_1472823513",
+      "dateCreated": "2025-07-24T21:51:38+0000",
+      "dateStarted": "2025-07-25T16:01:52+0000",
+      "dateFinished": "2025-07-25T16:01:52+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:552"
+    },
+    {
+      "user": "anonymous",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "scatterChart",
+              "height": 325.2,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "AMIE": "string",
+                      "anio_lectivo": "string",
+                      "Provincia": "string",
+                      "Canton": "string",
+                      "Total_Estudiantes": "string",
+                      "Total_Docentes": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                },
+                "stackedAreaChart": {
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "default"
+                },
+                "lineChart": {
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "default"
+                },
+                "multiBarChart": {
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "default",
+                  "stacked": true
+                },
+                "pieChart": {}
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "Total_Estudiantes",
+                  "index": 4,
+                  "aggr": "sum"
+                },
+                {
+                  "name": "Total_Docentes",
+                  "index": 5,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "anio_lectivo",
+                  "index": 1,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://10.0.5.2:4040/jobs/job?id=16",
+              "$$hashKey": "object:5701"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1753459213300_1821701980",
+      "id": "paragraph_1753459213300_1821701980",
+      "dateCreated": "2025-07-25T16:00:13+0000",
+      "status": "FINISHED",
+      "focus": true,
+      "$$hashKey": "object:2711",
+      "text": "z.show(df_final_union)",
+      "dateUpdated": "2025-07-25T16:05:06+0000",
+      "dateFinished": "2025-07-25T16:02:53+0000",
+      "dateStarted": "2025-07-25T16:02:52+0000",
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "AMIE\tanio_lectivo\tProvincia\tCanton\tTotal_Estudiantes\tTotal_Docentes\n01H01829\t2022-2023 FIN\tAZUAY\tCUENCA\t7.0\t3\n04H00462\t2022-2023 FIN\tCARCHI\tESPEJO\t17.0\t3\n08H01180\t2022-2023 FIN\tSANTO DOMINGO DE LOS TSACHILAS\tLA CONCORDIA\t79.0\t15\n08H01524\t2022-2023 FIN\tESMERALDAS\tATACAMES\t131.0\t25\n08H02161\t2022-2023 FIN\tESMERALDAS\tQUININDE\t19.0\t3\n09H06652\t2022-2023 FIN\tGUAYAS\tGUAYAQUIL\t86.0\t5\n10H00070\t2022-2023 FIN\tIMBABURA\tIBARRA\t38.0\t12\n11H02033\t2022-2023 FIN\tLOJA\tSARAGURO\t4.0\t1\n12H02246\t2022-2023 FIN\tLOS RIOS\tPUEBLOVIEJO\t10.0\t5\n17H04382\t2022-2023 FIN\tPICHINCHA\tMEJIA\t50.0\t9\n21H00811\t2022-2023 FIN\tSUCUMBIOS\tGONZALO PIZARRO\t25.0\t5\n22H00131\t2022-2023 FIN\tORELLANA\tORELLANA\t145.0\t25\n01B00021\t2022-2023 FIN\tAZUAY\tCUENCA\t10.0\t1\n01B00027\t2022-2023 FIN\tAZUAY\tCUENCA\t145.0\t12\n01B00029\t2022-2023 FIN\tAZUAY\tCUENCA\t36.0\t3\n01B00031\t2022-2023 FIN\tAZUAY\tCUENCA\t45.0\t3\n01B00032\t2022-2023 FIN\tAZUAY\tCUENCA\t18.0\t2\n01B00034\t2022-2023 FIN\tAZUAY\tCUENCA\t24.0\t4\n01B00035\t2022-2023 FIN\tAZUAY\tCUENCA\t25.0\t2\n01B00036\t2022-2023 FIN\tAZUAY\tCUENCA\t80.0\t5\n01B00040\t2022-2023 FIN\tAZUAY\tGUALACEO\t10.0\t2\n01B00041\t2022-2023 FIN\tAZUAY\tGUALACEO\t55.0\t4\n01B00043\t2022-2023 FIN\tAZUAY\tGUALACEO\t7.0\t1\n01B00055\t2022-2023 FIN\tAZUAY\tNABON\t10.0\t1\n01B00056\t2022-2023 FIN\tAZUAY\tSIGSIG\t67.0\t3\n01B00057\t2022-2023 FIN\tAZUAY\tO�A\t102.0\t8\n01B00060\t2022-2023 FIN\tAZUAY\tCUENCA\t41.0\t3\n01B00065\t2022-2023 FIN\tAZUAY\tCUENCA\t5.0\t1\n01B00066\t2022-2023 FIN\tAZUAY\tCUENCA\t19.0\t2\n01B00072\t2022-2023 FIN\tAZUAY\tCUENCA\t42.0\t2\n01B00073\t2022-2023 FIN\tAZUAY\tNABON\t3.0\t1\n01H00253\t2022-2023 FIN\tAZUAY\tCUENCA\t284.0\t15\n01H00497\t2022-2023 FIN\tAZUAY\tCUENCA\t756.0\t27\n01H00503\t2022-2023 FIN\tAZUAY\tCUENCA\t151.0\t10\n01H00508\t2022-2023 FIN\tAZUAY\tCUENCA\t171.0\t14\n01H00509\t2022-2023 FIN\tAZUAY\tCUENCA\t120.0\t9\n01H00511\t2022-2023 FIN\tAZUAY\tCUENCA\t818.0\t41\n01H00514\t2022-2023 FIN\tAZUAY\tCUENCA\t374.0\t28\n01H00523\t2022-2023 FIN\tAZUAY\tCUENCA\t612.0\t35\n01H00524\t2022-2023 FIN\tAZUAY\tCUENCA\t269.0\t13\n01H00530\t2022-2023 FIN\tAZUAY\tCUENCA\t340.0\t28\n01H00542\t2022-2023 FIN\tAZUAY\tCUENCA\t271.0\t15\n01H00547\t2022-2023 FIN\tAZUAY\tCUENCA\t21.0\t2\n01H00550\t2022-2023 FIN\tAZUAY\tCUENCA\t610.0\t30\n01H00551\t2022-2023 FIN\tAZUAY\tCUENCA\t371.0\t18\n01H00552\t2022-2023 FIN\tAZUAY\tCUENCA\t414.0\t20\n01H00553\t2022-2023 FIN\tAZUAY\tCUENCA\t10.0\t1\n01H00558\t2022-2023 FIN\tAZUAY\tCUENCA\t13.0\t1\n01H00561\t2022-2023 FIN\tAZUAY\tCUENCA\t15.0\t1\n01H00562\t2022-2023 FIN\tAZUAY\tCUENCA\t11.0\t1\n01H00563\t2022-2023 FIN\tAZUAY\tCUENCA\t10.0\t1\n01H00564\t2022-2023 FIN\tAZUAY\tCUENCA\t19.0\t1\n01H00565\t2022-2023 FIN\tAZUAY\tCUENCA\t23.0\t2\n01H00566\t2022-2023 FIN\tAZUAY\tCUENCA\t4.0\t1\n01H00568\t2022-2023 FIN\tAZUAY\tCUENCA\t9.0\t1\n01H00569\t2022-2023 FIN\tAZUAY\tCUENCA\t3.0\t1\n01H00570\t2022-2023 FIN\tAZUAY\tCUENCA\t26.0\t1\n01H00571\t2022-2023 FIN\tAZUAY\tCUENCA\t175.0\t11\n01H00574\t2022-2023 FIN\tAZUAY\tCUENCA\t43.0\t3\n01H00578\t2022-2023 FIN\tAZUAY\tCUENCA\t473.0\t26\n01H00580\t2022-2023 FIN\tAZUAY\tCUENCA\t47.0\t2\n01H00581\t2022-2023 FIN\tAZUAY\tCUENCA\t1108.0\t44\n01H00593\t2022-2023 FIN\tAZUAY\tCUENCA\t46.0\t3\n01H00594\t2022-2023 FIN\tAZUAY\tCUENCA\t183.0\t11\n01H00595\t2022-2023 FIN\tAZUAY\tCUENCA\t17.0\t2\n01H00597\t2022-2023 FIN\tAZUAY\tCUENCA\t431.0\t25\n01H00599\t2022-2023 FIN\tAZUAY\tCUENCA\t19.0\t2\n01H00604\t2022-2023 FIN\tAZUAY\tCUENCA\t268.0\t11\n01H00605\t2022-2023 FIN\tAZUAY\tCUENCA\t351.0\t19\n01H00606\t2022-2023 FIN\tAZUAY\tCUENCA\t39.0\t3\n01H00612\t2022-2023 FIN\tAZUAY\tCUENCA\t11.0\t2\n01H00613\t2022-2023 FIN\tAZUAY\tCUENCA\t11.0\t1\n01H00614\t2022-2023 FIN\tAZUAY\tCUENCA\t9.0\t1\n01H00616\t2022-2023 FIN\tAZUAY\tCUENCA\t22.0\t2\n01H00617\t2022-2023 FIN\tAZUAY\tCUENCA\t155.0\t7\n01H00620\t2022-2023 FIN\tAZUAY\tCUENCA\t9.0\t1\n01H00621\t2022-2023 FIN\tAZUAY\tCUENCA\t240.0\t12\n01H00622\t2022-2023 FIN\tAZUAY\tCUENCA\t25.0\t2\n01H00625\t2022-2023 FIN\tCA�AR\tCA�AR\t21.0\t1\n01H00626\t2022-2023 FIN\tAZUAY\tCUENCA\t27.0\t3\n01H00627\t2022-2023 FIN\tAZUAY\tCUENCA\t5.0\t1\n01H00629\t2022-2023 FIN\tAZUAY\tCUENCA\t11.0\t1\n01H00630\t2022-2023 FIN\tAZUAY\tCUENCA\t416.0\t20\n01H00634\t2022-2023 FIN\tCA�AR\tCA�AR\t7.0\t1\n01H00635\t2022-2023 FIN\tAZUAY\tCUENCA\t6.0\t1\n01H00643\t2022-2023 FIN\tCA�AR\tCA�AR\t33.0\t2\n01H00644\t2022-2023 FIN\tAZUAY\tCUENCA\t137.0\t10\n01H00645\t2022-2023 FIN\tAZUAY\tCUENCA\t5.0\t1\n01H00646\t2022-2023 FIN\tAZUAY\tCUENCA\t24.0\t2\n01H00647\t2022-2023 FIN\tAZUAY\tCUENCA\t64.0\t6\n01H00648\t2022-2023 FIN\tAZUAY\tCUENCA\t7.0\t1\n01H00650\t2022-2023 FIN\tGUAYAS\tNARANJAL\t79.0\t3\n01H00653\t2022-2023 FIN\tAZUAY\tCUENCA\t60.0\t3\n01H00654\t2022-2023 FIN\tAZUAY\tCUENCA\t12.0\t1\n01H00656\t2022-2023 FIN\tAZUAY\tCUENCA\t202.0\t14\n01H00660\t2022-2023 FIN\tAZUAY\tCUENCA\t9.0\t1\n01H00663\t2022-2023 FIN\tCA�AR\tCA�AR\t17.0\t1\n01H00666\t2022-2023 FIN\tAZUAY\tCUENCA\t15.0\t1\n01H00667\t2022-2023 FIN\tAZUAY\tCUENCA\t35.0\t1\n01H00672\t2022-2023 FIN\tAZUAY\tCUENCA\t60.0\t2\n01H00673\t2022-2023 FIN\tAZUAY\tCUENCA\t13.0\t1\n01H00674\t2022-2023 FIN\tAZUAY\tCUENCA\t9.0\t1\n01H00677\t2022-2023 FIN\tAZUAY\tCUENCA\t7.0\t1\n01H00678\t2022-2023 FIN\tAZUAY\tCUENCA\t71.0\t4\n01H00679\t2022-2023 FIN\tAZUAY\tCUENCA\t4.0\t1\n01H00681\t2022-2023 FIN\tAZUAY\tCUENCA\t58.0\t5\n01H00682\t2022-2023 FIN\tAZUAY\tCUENCA\t4.0\t1\n01H00685\t2022-2023 FIN\tAZUAY\tCUENCA\t17.0\t2\n01H00686\t2022-2023 FIN\tAZUAY\tCUENCA\t41.0\t3\n01H00687\t2022-2023 FIN\tAZUAY\tCUENCA\t58.0\t3\n01H00688\t2022-2023 FIN\tAZUAY\tCUENCA\t7.0\t1\n01H00692\t2022-2023 FIN\tAZUAY\tCUENCA\t10.0\t2\n01H00700\t2022-2023 FIN\tAZUAY\tCUENCA\t221.0\t16\n01H00704\t2022-2023 FIN\tAZUAY\tCUENCA\t13.0\t2\n01H00705\t2022-2023 FIN\tAZUAY\tCUENCA\t24.0\t2\n01H00706\t2022-2023 FIN\tAZUAY\tCUENCA\t413.0\t21\n01H00708\t2022-2023 FIN\tAZUAY\tCUENCA\t13.0\t2\n01H00709\t2022-2023 FIN\tAZUAY\tCUENCA\t10.0\t2\n01H00711\t2022-2023 FIN\tAZUAY\tCUENCA\t279.0\t20\n01H00715\t2022-2023 FIN\tAZUAY\tCUENCA\t21.0\t2\n01H00719\t2022-2023 FIN\tAZUAY\tCUENCA\t14.0\t2\n01H00721\t2022-2023 FIN\tAZUAY\tCUENCA\t915.0\t45\n01H00723\t2022-2023 FIN\tAZUAY\tCUENCA\t12.0\t1\n01H00725\t2022-2023 FIN\tAZUAY\tCUENCA\t172.0\t11\n01H00728\t2022-2023 FIN\tAZUAY\tCUENCA\t47.0\t3\n01H00733\t2022-2023 FIN\tAZUAY\tCUENCA\t260.0\t17\n01H00736\t2022-2023 FIN\tAZUAY\tCUENCA\t11.0\t1\n01H00737\t2022-2023 FIN\tAZUAY\tCUENCA\t24.0\t2\n01H00738\t2022-2023 FIN\tAZUAY\tCUENCA\t30.0\t2\n01H00742\t2022-2023 FIN\tAZUAY\tCUENCA\t26.0\t2\n01H00748\t2022-2023 FIN\tAZUAY\tCUENCA\t18.0\t1\n01H00754\t2022-2023 FIN\tAZUAY\tCUENCA\t758.0\t34\n01H00761\t2022-2023 FIN\tAZUAY\tCUENCA\t1453.0\t59\n01H00762\t2022-2023 FIN\tAZUAY\tCUENCA\t739.0\t45\n01H00764\t2022-2023 FIN\tAZUAY\tCUENCA\t116.0\t8\n01H00770\t2022-2023 FIN\tAZUAY\tCUENCA\t137.0\t11\n01H00774\t2022-2023 FIN\tAZUAY\tCUENCA\t226.0\t10\n01H00777\t2022-2023 FIN\tAZUAY\tCUENCA\t303.0\t14\n01H00779\t2022-2023 FIN\tAZUAY\tCUENCA\t230.0\t18\n01H00782\t2022-2023 FIN\tAZUAY\tCUENCA\t10.0\t1\n01H00785\t2022-2023 FIN\tAZUAY\tCUENCA\t31.0\t3\n01H00786\t2022-2023 FIN\tAZUAY\tCUENCA\t766.0\t45\n01H00790\t2022-2023 FIN\tAZUAY\tCUENCA\t218.0\t15\n01H00792\t2022-2023 FIN\tAZUAY\tCUENCA\t268.0\t17\n01H00793\t2022-2023 FIN\tAZUAY\tCUENCA\t7.0\t1\n01H00795\t2022-2023 FIN\tAZUAY\tCUENCA\t74.0\t5\n01H00797\t2022-2023 FIN\tAZUAY\tCUENCA\t3.0\t1\n01H00798\t2022-2023 FIN\tAZUAY\tCUENCA\t579.0\t26\n01H00799\t2022-2023 FIN\tAZUAY\tCUENCA\t324.0\t22\n01H00800\t2022-2023 FIN\tAZUAY\tCUENCA\t331.0\t14\n01H00814\t2022-2023 FIN\tAZUAY\tCUENCA\t783.0\t30\n01H00821\t2022-2023 FIN\tAZUAY\tCUENCA\t298.0\t18\n01H00825\t2022-2023 FIN\tAZUAY\tCUENCA\t36.0\t2\n01H00831\t2022-2023 FIN\tAZUAY\tCUENCA\t18.0\t2\n01H00833\t2022-2023 FIN\tAZUAY\tCUENCA\t291.0\t19\n01H00835\t2022-2023 FIN\tAZUAY\tCUENCA\t24.0\t2\n01H00837\t2022-2023 FIN\tAZUAY\tCUENCA\t124.0\t11\n01H00839\t2022-2023 FIN\tAZUAY\tCUENCA\t537.0\t29\n01H00840\t2022-2023 FIN\tAZUAY\tCUENCA\t175.0\t13\n01H00842\t2022-2023 FIN\tAZUAY\tCUENCA\t133.0\t7\n01H00845\t2022-2023 FIN\tAZUAY\tCUENCA\t187.0\t14\n01H00850\t2022-2023 FIN\tAZUAY\tCUENCA\t364.0\t18\n01H00851\t2022-2023 FIN\tAZUAY\tCUENCA\t28.0\t2\n01H00854\t2022-2023 FIN\tAZUAY\tCUENCA\t96.0\t4\n01H00855\t2022-2023 FIN\tAZUAY\tCUENCA\t319.0\t14\n01H00857\t2022-2023 FIN\tAZUAY\tCUENCA\t13.0\t1\n01H00859\t2022-2023 FIN\tAZUAY\tCUENCA\t16.0\t1\n01H00860\t2022-2023 FIN\tAZUAY\tCUENCA\t5.0\t1\n01H00861\t2022-2023 FIN\tAZUAY\tCUENCA\t409.0\t19\n01H00863\t2022-2023 FIN\tAZUAY\tCUENCA\t12.0\t1\n01H00865\t2022-2023 FIN\tAZUAY\tCUENCA\t31.0\t2\n01H00867\t2022-2023 FIN\tAZUAY\tCUENCA\t6.0\t1\n01H00868\t2022-2023 FIN\tAZUAY\tCUENCA\t691.0\t34\n01H00869\t2022-2023 FIN\tAZUAY\tCUENCA\t7.0\t1\n01H00870\t2022-2023 FIN\tAZUAY\tCUENCA\t18.0\t2\n01H00872\t2022-2023 FIN\tAZUAY\tCUENCA\t170.0\t12\n01H00873\t2022-2023 FIN\tAZUAY\tCUENCA\t208.0\t13\n01H00874\t2022-2023 FIN\tAZUAY\tCUENCA\t9.0\t1\n01H00876\t2022-2023 FIN\tAZUAY\tCUENCA\t154.0\t12\n01H00880\t2022-2023 FIN\tAZUAY\tCUENCA\t22.0\t2\n01H00882\t2022-2023 FIN\tAZUAY\tCUENCA\t266.0\t17\n01H00884\t2022-2023 FIN\tAZUAY\tCUENCA\t230.0\t14\n01H00885\t2022-2023 FIN\tAZUAY\tCUENCA\t65.0\t4\n01H00886\t2022-2023 FIN\tAZUAY\tCUENCA\t237.0\t16\n01H00887\t2022-2023 FIN\tAZUAY\tCUENCA\t455.0\t31\n01H00888\t2022-2023 FIN\tAZUAY\tCUENCA\t164.0\t14\n01H00889\t2022-2023 FIN\tAZUAY\tCUENCA\t275.0\t18\n01H00892\t2022-2023 FIN\tAZUAY\tCUENCA\t102.0\t7\n01H00894\t2022-2023 FIN\tAZUAY\tCUENCA\t1265.0\t63\n01H00895\t2022-2023 FIN\tAZUAY\tCUENCA\t86.0\t5\n01H00904\t2022-2023 FIN\tAZUAY\tCUENCA\t335.0\t15\n01H00906\t2022-2023 FIN\tAZUAY\tCUENCA\t670.0\t30\n01H00907\t2022-2023 FIN\tAZUAY\tCUENCA\t905.0\t38\n01H00912\t2022-2023 FIN\tAZUAY\tCUENCA\t98.0\t6\n01H00915\t2022-2023 FIN\tAZUAY\tCUENCA\t17.0\t1\n01H00918\t2022-2023 FIN\tAZUAY\tCUENCA\t1104.0\t47\n01H00920\t2022-2023 FIN\tAZUAY\tCUENCA\t29.0\t2\n01H00965\t2022-2023 FIN\tAZUAY\tGIRON\t130.0\t9\n01H00966\t2022-2023 FIN\tAZUAY\tGIRON\t403.0\t20\n01H00967\t2022-2023 FIN\tAZUAY\tGIRON\t14.0\t1\n01H00968\t2022-2023 FIN\tAZUAY\tGIRON\t7.0\t1\n01H00969\t2022-2023 FIN\tAZUAY\tGIRON\t5.0\t1\n01H00970\t2022-2023 FIN\tAZUAY\tGIRON\t13.0\t1\n01H00971\t2022-2023 FIN\tAZUAY\tGIRON\t7.0\t1\n01H00974\t2022-2023 FIN\tAZUAY\tGIRON\t6.0\t1\n01H00976\t2022-2023 FIN\tAZUAY\tGIRON\t99.0\t7\n01H01026\t2022-2023 FIN\tAZUAY\tGUALACEO\t209.0\t12\n01H01029\t2022-2023 FIN\tAZUAY\tGUALACEO\t100.0\t7\n01H01031\t2022-2023 FIN\tAZUAY\tGUALACEO\t42.0\t2\n01H01036\t2022-2023 FIN\tAZUAY\tGUALACEO\t84.0\t5\n01H01041\t2022-2023 FIN\tAZUAY\tGUALACEO\t240.0\t13\n01H01042\t2022-2023 FIN\tAZUAY\tGUALACEO\t517.0\t25\n01H01044\t2022-2023 FIN\tAZUAY\tGUALACEO\t178.0\t12\n01H01045\t2022-2023 FIN\tAZUAY\tGUALACEO\t5.0\t1\n01H01046\t2022-2023 FIN\tAZUAY\tGUALACEO\t7.0\t1\n01H01048\t2022-2023 FIN\tAZUAY\tGUALACEO\t6.0\t1\n01H01049\t2022-2023 FIN\tAZUAY\tGUALACEO\t25.0\t2\n01H01051\t2022-2023 FIN\tAZUAY\tGUALACEO\t19.0\t1\n01H01053\t2022-2023 FIN\tAZUAY\tGUALACEO\t28.0\t2\n01H01054\t2022-2023 FIN\tAZUAY\tGUALACEO\t15.0\t1\n01H01059\t2022-2023 FIN\tAZUAY\tGUALACEO\t8.0\t1\n01H01066\t2022-2023 FIN\tAZUAY\tGUALACEO\t62.0\t4\n01H01067\t2022-2023 FIN\tAZUAY\tGUALACEO\t558.0\t28\n01H01071\t2022-2023 FIN\tAZUAY\tGUALACEO\t11.0\t1\n01H01073\t2022-2023 FIN\tAZUAY\tGUALACEO\t68.0\t3\n01H01074\t2022-2023 FIN\tAZUAY\tGUALACEO\t7.0\t1\n01H01078\t2022-2023 FIN\tAZUAY\tGUALACEO\t358.0\t19\n01H01080\t2022-2023 FIN\tAZUAY\tGUALACEO\t53.0\t3\n01H01103\t2022-2023 FIN\tAZUAY\tNABON\t13.0\t1\n01H01104\t2022-2023 FIN\tAZUAY\tNABON\t75.0\t5\n01H01108\t2022-2023 FIN\tAZUAY\tNABON\t25.0\t2\n01H01109\t2022-2023 FIN\tAZUAY\tNABON\t24.0\t2\n01H01110\t2022-2023 FIN\tAZUAY\tNABON\t4.0\t1\n01H01112\t2022-2023 FIN\tAZUAY\tNABON\t227.0\t19\n01H01113\t2022-2023 FIN\tAZUAY\tNABON\t25.0\t2\n01H01114\t2022-2023 FIN\tAZUAY\tNABON\t57.0\t5\n01H01115\t2022-2023 FIN\tAZUAY\tNABON\t5.0\t1\n01H01116\t2022-2023 FIN\tAZUAY\tNABON\t34.0\t3\n01H01117\t2022-2023 FIN\tAZUAY\tNABON\t33.0\t3\n01H01118\t2022-2023 FIN\tAZUAY\tNABON\t17.0\t1\n01H01120\t2022-2023 FIN\tAZUAY\tNABON\t4.0\t1\n01H01122\t2022-2023 FIN\tAZUAY\tNABON\t30.0\t3\n01H01123\t2022-2023 FIN\tAZUAY\tNABON\t3.0\t1\n01H01124\t2022-2023 FIN\tAZUAY\tNABON\t3.0\t1\n01H01126\t2022-2023 FIN\tAZUAY\tNABON\t86.0\t12\n01H01127\t2022-2023 FIN\tAZUAY\tNABON\t7.0\t1\n01H01128\t2022-2023 FIN\tAZUAY\tNABON\t5.0\t1\n01H01129\t2022-2023 FIN\tAZUAY\tNABON\t1.0\t1\n01H01131\t2022-2023 FIN\tAZUAY\tNABON\t7.0\t1\n01H01132\t2022-2023 FIN\tAZUAY\tNABON\t191.0\t18\n01H01136\t2022-2023 FIN\tAZUAY\tNABON\t33.0\t3\n01H01162\t2022-2023 FIN\tAZUAY\tPAUTE\t172.0\t14\n01H01163\t2022-2023 FIN\tAZUAY\tPAUTE\t25.0\t1\n01H01169\t2022-2023 FIN\tAZUAY\tPAUTE\t109.0\t7\n01H01170\t2022-2023 FIN\tAZUAY\tPAUTE\t4.0\t1\n01H01171\t2022-2023 FIN\tAZUAY\tPAUTE\t23.0\t1\n01H01175\t2022-2023 FIN\tAZUAY\tPAUTE\t226.0\t18\n01H01179\t2022-2023 FIN\tAZUAY\tPAUTE\t13.0\t1\n01H01181\t2022-2023 FIN\tAZUAY\tPAUTE\t8.0\t1\n01H01183\t2022-2023 FIN\tAZUAY\tPAUTE\t318.0\t20\n01H01184\t2022-2023 FIN\tAZUAY\tPAUTE\t8.0\t1\n01H01186\t2022-2023 FIN\tAZUAY\tPAUTE\t10.0\t1\n01H01187\t2022-2023 FIN\tAZUAY\tPAUTE\t137.0\t15\n01H01192\t2022-2023 FIN\tAZUAY\tPAUTE\t13.0\t1\n01H01193\t2022-2023 FIN\tAZUAY\tPAUTE\t6.0\t1\n01H01197\t2022-2023 FIN\tAZUAY\tPAUTE\t248.0\t20\n01H01201\t2022-2023 FIN\tAZUAY\tPAUTE\t30.0\t2\n01H01202\t2022-2023 FIN\tAZUAY\tPAUTE\t117.0\t10\n01H01205\t2022-2023 FIN\tAZUAY\tPAUTE\t200.0\t12\n01H01228\t2022-2023 FIN\tAZUAY\tPUCARA\t8.0\t1\n01H01257\t2022-2023 FIN\tAZUAY\tPUCARA\t267.0\t13\n01H01258\t2022-2023 FIN\tAZUAY\tPUCARA\t5.0\t1\n01H01259\t2022-2023 FIN\tAZUAY\tPUCARA\t15.0\t1\n01H01261\t2022-2023 FIN\tAZUAY\tPUCARA\t11.0\t1\n01H01262\t2022-2023 FIN\tAZUAY\tPUCARA\t101.0\t5\n01H01264\t2022-2023 FIN\tAZUAY\tPUCARA\t9.0\t1\n01H01266\t2022-2023 FIN\tAZUAY\tPUCARA\t13.0\t1\n01H01268\t2022-2023 FIN\tAZUAY\tPUCARA\t8.0\t1\n01H01282\t2022-2023 FIN\tAZUAY\tSAN FERNANDO\t80.0\t5\n01H01310\t2022-2023 FIN\tAZUAY\tSANTA ISABEL\t7.0\t1\n01H01311\t2022-2023 FIN\tAZUAY\tNABON\t13.0\t1\n01H01312\t2022-2023 FIN\tAZUAY\tSANTA ISABEL\t967.0\t41\n01H01313\t2022-2023 FIN\tAZUAY\tSANTA ISABEL\t27.0\t2\n01H01314\t2022-2023 FIN\tAZUAY\tSANTA ISABEL\t16.0\t1\n01H01315\t2022-2023 FIN\tAZUAY\tSANTA ISABEL\t9.0\t1\n01H01316\t2022-2023 FIN\tAZUAY\tSANTA ISABEL\t27.0\t1\n01H01320\t2022-2023 FIN\tAZUAY\tNABON\t4.0\t1\n01H01321\t2022-2023 FIN\tAZUAY\tNABON\t22.0\t2\n01H01322\t2022-2023 FIN\tAZUAY\tSANTA ISABEL\t7.0\t1\n01H01324\t2022-2023 FIN\tAZUAY\tSANTA ISABEL\t10.0\t1\n01H01327\t2022-2023 FIN\tAZUAY\tSANTA ISABEL\t152.0\t13\n01H01328\t2022-2023 FIN\tAZUAY\tSANTA ISABEL\t15.0\t1\n01H01329\t2022-2023 FIN\tAZUAY\tSANTA ISABEL\t67.0\t3\n01H01330\t2022-2023 FIN\tAZUAY\tSANTA ISABEL\t11.0\t1\n01H01331\t2022-2023 FIN\tAZUAY\tSANTA ISABEL\t20.0\t1\n01H01332\t2022-2023 FIN\tAZUAY\tSANTA ISABEL\t11.0\t1\n01H01333\t2022-2023 FIN\tAZUAY\tSANTA ISABEL\t4.0\t1\n01H01334\t2022-2023 FIN\tAZUAY\tSANTA ISABEL\t4.0\t1\n01H01335\t2022-2023 FIN\tAZUAY\tSANTA ISABEL\t31.0\t2\n01H01336\t2022-2023 FIN\tAZUAY\tSANTA ISABEL\t15.0\t1\n01H01337\t2022-2023 FIN\tAZUAY\tSANTA ISABEL\t7.0\t1\n01H01338\t2022-2023 FIN\tAZUAY\tSANTA ISABEL\t8.0\t1\n01H01371\t2022-2023 FIN\tAZUAY\tSIGSIG\t25.0\t2\n01H01373\t2022-2023 FIN\tAZUAY\tSIGSIG\t251.0\t20\n01H01375\t2022-2023 FIN\tAZUAY\tSIGSIG\t25.0\t1\n01H01378\t2022-2023 FIN\tAZUAY\tSIGSIG\t473.0\t29\n01H01380\t2022-2023 FIN\tAZUAY\tSIGSIG\t27.0\t1\n01H01382\t2022-2023 FIN\tAZUAY\tSIGSIG\t4.0\t1\n01H01384\t2022-2023 FIN\tAZUAY\tSIGSIG\t31.0\t2\n01H01385\t2022-2023 FIN\tAZUAY\tSIGSIG\t8.0\t1\n01H01386\t2022-2023 FIN\tAZUAY\tSIGSIG\t20.0\t1\n01H01390\t2022-2023 FIN\tAZUAY\tSIGSIG\t229.0\t19\n01H01391\t2022-2023 FIN\tAZUAY\tSIGSIG\t38.0\t2\n01H01394\t2022-2023 FIN\tAZUAY\tSIGSIG\t25.0\t1\n01H01395\t2022-2023 FIN\tAZUAY\tSIGSIG\t22.0\t1\n01H01398\t2022-2023 FIN\tAZUAY\tSIGSIG\t22.0\t1\n01H01401\t2022-2023 FIN\tAZUAY\tSIGSIG\t198.0\t11\n01H01404\t2022-2023 FIN\tAZUAY\tSIGSIG\t27.0\t2\n01H01407\t2022-2023 FIN\tAZUAY\tSIGSIG\t236.0\t15\n01H01408\t2022-2023 FIN\tAZUAY\tSIGSIG\t22.0\t1\n01H01409\t2022-2023 FIN\tAZUAY\tSIGSIG\t34.0\t2\n01H01412\t2022-2023 FIN\tAZUAY\tSIGSIG\t113.0\t8\n01H01414\t2022-2023 FIN\tAZUAY\tSIGSIG\t2.0\t1\n01H01417\t2022-2023 FIN\tAZUAY\tSIGSIG\t468.0\t28\n01H01418\t2022-2023 FIN\tAZUAY\tSIGSIG\t10.0\t1\n01H01419\t2022-2023 FIN\tAZUAY\tSIGSIG\t162.0\t13\n01H01421\t2022-2023 FIN\tAZUAY\tSIGSIG\t45.0\t3\n01H01422\t2022-2023 FIN\tAZUAY\tSIGSIG\t53.0\t4\n01H01427\t2022-2023 FIN\tAZUAY\tSIGSIG\t10.0\t1\n01H01428\t2022-2023 FIN\tAZUAY\tSIGSIG\t84.0\t4\n01H01429\t2022-2023 FIN\tAZUAY\tSIGSIG\t372.0\t19\n01H01430\t2022-2023 FIN\tAZUAY\tSIGSIG\t42.0\t2\n01H01445\t2022-2023 FIN\tAZUAY\tO�A\t110.0\t13\n01H01447\t2022-2023 FIN\tAZUAY\tO�A\t15.0\t1\n01H01463\t2022-2023 FIN\tAZUAY\tCHORDELEG\t57.0\t3\n01H01466\t2022-2023 FIN\tAZUAY\tCHORDELEG\t209.0\t15\n01H01468\t2022-2023 FIN\tAZUAY\tCHORDELEG\t10.0\t1\n01H01469\t2022-2023 FIN\tAZUAY\tCHORDELEG\t194.0\t13\n01H01472\t2022-2023 FIN\tAZUAY\tCHORDELEG\t159.0\t10\n01H01474\t2022-2023 FIN\tAZUAY\tCHORDELEG\t12.0\t1\n01H01477\t2022-2023 FIN\tAZUAY\tCHORDELEG\t216.0\t12\n01H01483\t2022-2023 FIN\tAZUAY\tEL PAN\t28.0\t2\n01H01486\t2022-2023 FIN\tAZUAY\tEL PAN\t42.0\t3\n01H01488\t2022-2023 FIN\tAZUAY\tEL PAN\t67.0\t3\n01H01500\t2022-2023 FIN\tAZUAY\tSEVILLA DE ORO\t226.0\t16\n01H01502\t2022-2023 FIN\tAZUAY\tSEVILLA DE ORO\t6.0\t1\n01H01512\t2022-2023 FIN\tAZUAY\tSEVILLA DE ORO\t434.0\t27\n01H01513\t2022-2023 FIN\tAZUAY\tSEVILLA DE ORO\t16.0\t1\n01H01516\t2022-2023 FIN\tAZUAY\tSEVILLA DE ORO\t4.0\t1\n01H01517\t2022-2023 FIN\tAZUAY\tSEVILLA DE ORO\t14.0\t1\n01H01590\t2022-2023 FIN\tAZUAY\tSANTA ISABEL\t22.0\t1\n01H01596\t2022-2023 FIN\tAZUAY\tSIGSIG\t29.0\t2\n01H01600\t2022-2023 FIN\tAZUAY\tPUCARA\t7.0\t1\n01H01601\t2022-2023 FIN\tAZUAY\tCUENCA\t4.0\t1\n01H01609\t2022-2023 FIN\tAZUAY\tNABON\t7.0\t1\n01H01629\t2022-2023 FIN\tAZUAY\tCUENCA\t3.0\t1\n01H01632\t2022-2023 FIN\tAZUAY\tCUENCA\t11.0\t1\n01H01633\t2022-2023 FIN\tAZUAY\tPUCARA\t13.0\t1\n01H01785\t2022-2023 FIN\tAZUAY\tCUENCA\t6.0\t1\n01H01794\t2022-2023 FIN\tAZUAY\tCUENCA\t6.0\t1\n01H01797\t2022-2023 FIN\tAZUAY\tPUCARA\t6.0\t1\n01H01798\t2022-2023 FIN\tAZUAY\tCUENCA\t10.0\t1\n01H01870\t2022-2023 FIN\tAZUAY\tGUALACEO\t673.0\t36\n01H02002\t2022-2023 FIN\tAZUAY\tCUENCA\t1768.0\t73\n01H02006\t2022-2023 FIN\tAZUAY\tCUENCA\t1945.0\t86\n01H02008\t2022-2023 FIN\tAZUAY\tCUENCA\t865.0\t40\n02B00019\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t124.0\t11\n02B00047\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t45.0\t2\n02B00048\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t307.0\t16\n02B00049\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t8.0\t1\n02B00053\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t29.0\t1\n02B00054\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t30.0\t1\n02B00055\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t14.0\t1\n02B00058\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t21.0\t1\n02B00059\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t8.0\t1\n02B00062\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t28.0\t2\n02B00065\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t119.0\t12\n02B00067\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t4.0\t1\n02B00070\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t49.0\t2\n02B00071\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t28.0\t2\n02B00074\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t39.0\t2\n02B00077\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t67.0\t5\n02B00078\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t771.0\t48\n02B00079\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t153.0\t12\n02B00080\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t146.0\t10\n02B00082\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t15.0\t1\n02B00084\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t20.0\t1\n02B00085\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t49.0\t3\n02B00092\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t45.0\t3\n02B00100\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t8.0\t1\n02B00101\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t8.0\t1\n02B00102\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t18.0\t1\n02B00103\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t11.0\t1\n02B00104\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t6.0\t1\n02B00106\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t9.0\t1\n02B00107\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t44.0\t3\n02B00108\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t35.0\t2\n02B00109\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t59.0\t3\n02B00111\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t50.0\t3\n02B00116\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t13.0\t1\n02B00118\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t131.0\t10\n02B00121\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t196.0\t21\n02B00133\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t44.0\t2\n02H00053\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t22.0\t1\n02H00062\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t16.0\t1\n02H00063\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t304.0\t15\n02H00064\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t16.0\t1\n02H00066\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t397.0\t21\n02H00107\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t15.0\t1\n02H00118\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t23.0\t1\n02H00119\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t13.0\t1\n02H00121\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t52.0\t5\n02H00123\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t19.0\t1\n02H00125\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t9.0\t1\n02H00126\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t95.0\t7\n02H00131\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t600.0\t33\n02H00132\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t13.0\t1\n02H00136\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t13.0\t1\n02H00137\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t124.0\t9\n02H00138\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t14.0\t1\n02H00140\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t53.0\t3\n02H00141\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t32.0\t4\n02H00142\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t8.0\t1\n02H00143\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t2.0\t1\n02H00148\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t46.0\t4\n02H00152\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t20.0\t1\n02H00153\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t22.0\t2\n02H00154\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t1.0\t1\n02H00155\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t59.0\t4\n02H00157\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t268.0\t33\n02H00158\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t7.0\t1\n02H00160\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t99.0\t8\n02H00163\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t5.0\t1\n02H00168\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t22.0\t1\n02H00170\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t51.0\t7\n02H00171\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t2.0\t1\n02H00173\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t10.0\t1\n02H00180\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t169.0\t16\n02H00183\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t18.0\t1\n02H00185\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t728.0\t32\n02H00186\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t13.0\t1\n02H00192\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t20.0\t1\n02H00193\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t12.0\t1\n02H00195\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t16.0\t1\n02H00196\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t5.0\t1\n02H00197\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t18.0\t1\n02H00198\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t13.0\t1\n02H00201\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t13.0\t1\n02H00202\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t34.0\t2\n02H00203\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t44.0\t2\n02H00206\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t17.0\t1\n02H00207\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t186.0\t12\n02H00208\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t8.0\t1\n02H00214\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t9.0\t1\n02H00219\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t1293.0\t56\n02H00221\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t21.0\t1\n02H00223\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t11.0\t1\n02H00293\t2022-2023 FIN\tBOLIVAR\tCHILLANES\t8.0\t1\n02H00297\t2022-2023 FIN\tBOLIVAR\tCHILLANES\t4.0\t1\n02H00307\t2022-2023 FIN\tBOLIVAR\tCHILLANES\t73.0\t3\n02H00308\t2022-2023 FIN\tBOLIVAR\tCHILLANES\t33.0\t1\n02H00309\t2022-2023 FIN\tBOLIVAR\tCHILLANES\t3.0\t1\n02H00310\t2022-2023 FIN\tBOLIVAR\tCHILLANES\t66.0\t4\n02H00311\t2022-2023 FIN\tBOLIVAR\tCHILLANES\t16.0\t1\n02H00314\t2022-2023 FIN\tBOLIVAR\tCHILLANES\t9.0\t1\n02H00319\t2022-2023 FIN\tBOLIVAR\tCHILLANES\t9.0\t1\n02H00321\t2022-2023 FIN\tBOLIVAR\tCHILLANES\t25.0\t2\n02H00322\t2022-2023 FIN\tBOLIVAR\tCHILLANES\t164.0\t8\n02H00323\t2022-2023 FIN\tBOLIVAR\tCHILLANES\t21.0\t1\n02H00327\t2022-2023 FIN\tBOLIVAR\tCHILLANES\t14.0\t1\n02H00329\t2022-2023 FIN\tBOLIVAR\tCHILLANES\t506.0\t22\n02H00330\t2022-2023 FIN\tBOLIVAR\tCHILLANES\t26.0\t1\n02H00331\t2022-2023 FIN\tBOLIVAR\tCHILLANES\t26.0\t1\n02H00332\t2022-2023 FIN\tBOLIVAR\tCHILLANES\t19.0\t1\n02H00333\t2022-2023 FIN\tBOLIVAR\tCHILLANES\t400.0\t17\n02H00336\t2022-2023 FIN\tBOLIVAR\tCHILLANES\t48.0\t2\n02H00338\t2022-2023 FIN\tLOS RIOS\tBABAHOYO\t93.0\t8\n02H00352\t2022-2023 FIN\tBOLIVAR\tCHIMBO\t114.0\t11\n02H00353\t2022-2023 FIN\tBOLIVAR\tCHIMBO\t9.0\t1\n02H00357\t2022-2023 FIN\tBOLIVAR\tCHIMBO\t19.0\t1\n02H00361\t2022-2023 FIN\tBOLIVAR\tCHIMBO\t9.0\t1\n02H00363\t2022-2023 FIN\tBOLIVAR\tCHIMBO\t147.0\t19\n02H00364\t2022-2023 FIN\tBOLIVAR\tCHIMBO\t20.0\t1\n02H00365\t2022-2023 FIN\tBOLIVAR\tCHIMBO\t41.0\t3\n02H00366\t2022-2023 FIN\tBOLIVAR\tCHIMBO\t128.0\t8\n02H00367\t2022-2023 FIN\tBOLIVAR\tCHIMBO\t7.0\t1\n02H00370\t2022-2023 FIN\tBOLIVAR\tCHIMBO\t58.0\t6\n02H00372\t2022-2023 FIN\tBOLIVAR\tCHIMBO\t3.0\t1\n02H00374\t2022-2023 FIN\tBOLIVAR\tCHIMBO\t240.0\t19\n02H00377\t2022-2023 FIN\tBOLIVAR\tCHIMBO\t4.0\t1\n02H00382\t2022-2023 FIN\tBOLIVAR\tCHIMBO\t29.0\t2\n02H00383\t2022-2023 FIN\tBOLIVAR\tCHIMBO\t36.0\t3\n02H00385\t2022-2023 FIN\tBOLIVAR\tCHIMBO\t6.0\t1\n02H00387\t2022-2023 FIN\tBOLIVAR\tCHIMBO\t9.0\t1\n02H00388\t2022-2023 FIN\tBOLIVAR\tCHIMBO\t9.0\t1\n02H00389\t2022-2023 FIN\tBOLIVAR\tCHIMBO\t17.0\t2\n02H00390\t2022-2023 FIN\tBOLIVAR\tCHIMBO\t16.0\t1\n02H00392\t2022-2023 FIN\tBOLIVAR\tCHIMBO\t5.0\t1\n02H00393\t2022-2023 FIN\tBOLIVAR\tCHIMBO\t2.0\t1\n02H00394\t2022-2023 FIN\tBOLIVAR\tCHIMBO\t4.0\t1\n02H00395\t2022-2023 FIN\tBOLIVAR\tCHIMBO\t14.0\t1\n02H00396\t2022-2023 FIN\tBOLIVAR\tCHIMBO\t11.0\t1\n02H00397\t2022-2023 FIN\tBOLIVAR\tCHIMBO\t23.0\t1\n02H00398\t2022-2023 FIN\tBOLIVAR\tCHIMBO\t13.0\t1\n02H00399\t2022-2023 FIN\tBOLIVAR\tCHIMBO\t9.0\t1\n02H00400\t2022-2023 FIN\tBOLIVAR\tCHIMBO\t10.0\t1\n02H00404\t2022-2023 FIN\tBOLIVAR\tCHIMBO\t6.0\t1\n02H00405\t2022-2023 FIN\tBOLIVAR\tCHIMBO\t17.0\t1\n02H00406\t2022-2023 FIN\tBOLIVAR\tCHIMBO\t175.0\t12\n02H00407\t2022-2023 FIN\tBOLIVAR\tCHIMBO\t4.0\t1\n02H00408\t2022-2023 FIN\tBOLIVAR\tCHIMBO\t11.0\t1\n02H00409\t2022-2023 FIN\tBOLIVAR\tCHIMBO\t6.0\t1\n02H00410\t2022-2023 FIN\tBOLIVAR\tCHIMBO\t57.0\t3\n02H00462\t2022-2023 FIN\tLOS RIOS\tVENTANAS\t7.0\t1\n02H00519\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t3.0\t1\n02H00539\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t11.0\t1\n02H00541\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t5.0\t1\n02H00543\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t347.0\t22\n02H00545\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t9.0\t1\n02H00548\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t9.0\t1\n02H00549\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t4.0\t1\n02H00550\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t5.0\t1\n02H00553\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t6.0\t1\n02H00556\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t4.0\t1\n02H00557\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t189.0\t14\n02H00558\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t22.0\t1\n02H00559\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t5.0\t1\n02H00560\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t2.0\t1\n02H00561\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t16.0\t1\n02H00562\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t8.0\t1\n02H00563\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t11.0\t1\n02H00564\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t37.0\t3\n02H00566\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t8.0\t1\n02H00567\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t15.0\t1\n02H00572\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t6.0\t1\n02H00573\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t10.0\t1\n02H00575\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t9.0\t1\n02H00577\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t9.0\t1\n02H00579\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t4.0\t1\n02H00581\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t13.0\t1\n02H00582\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t177.0\t15\n02H00583\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t6.0\t1\n02H00584\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t42.0\t3\n02H00585\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t20.0\t1\n02H00586\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t44.0\t2\n02H00587\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t303.0\t16\n02H00588\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t316.0\t28\n02H00589\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t13.0\t1\n02H00590\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t4.0\t1\n02H00591\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t131.0\t9\n02H00597\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t3.0\t1\n02H00598\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t6.0\t1\n02H00599\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t61.0\t7\n02H00605\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t13.0\t1\n02H00608\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t9.0\t1\n02H00609\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t14.0\t1\n02H00611\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t6.0\t1\n02H00613\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t214.0\t18\n02H00614\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t29.0\t3\n02H00615\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t65.0\t8\n02H00616\t2022-2023 FIN\tBOLIVAR\tSAN MIGUEL\t47.0\t3\n02H00618\t2022-2023 FIN\tBOLIVAR\tCHIMBO\t16.0\t1\n02H00683\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t9.0\t1\n02H00684\t2022-2023 FIN\tBOLIVAR\tCHIMBO\t8.0\t1\n02H00691\t2022-2023 FIN\tBOLIVAR\tCHILLANES\t83.0\t8\n02H00705\t2022-2023 FIN\tBOLIVAR\tCHIMBO\t3.0\t1\n02H00707\t2022-2023 FIN\tBOLIVAR\tGUARANDA\t7.0\t1\n02H00815\t2022-2023 FIN\tBOLIVAR\tCHIMBO\t5.0\t1\n03B00001\t2022-2023 FIN\tCA�AR\tCA�AR\t5.0\t1\n03B00005\t2022-2023 FIN\tCA�AR\tBIBLIAN\t8.0\t1\n03B00020\t2022-2023 FIN\tCA�AR\tCA�AR\t6.0\t1\n03B00021\t2022-2023 FIN\tCA�AR\tCA�AR\t9.0\t1\n03B00022\t2022-2023 FIN\tCA�AR\tCA�AR\t4.0\t1\n03B00024\t2022-2023 FIN\tCA�AR\tCA�AR\t14.0\t1\n03B00025\t2022-2023 FIN\tCA�AR\tCA�AR\t3.0\t1\n03B00030\t2022-2023 FIN\tCA�AR\tCA�AR\t11.0\t1\n03B00031\t2022-2023 FIN\tCA�AR\tCA�AR\t29.0\t2\n03B00032\t2022-2023 FIN\tCA�AR\tCA�AR\t100.0\t8\n03B00033\t2022-2023 FIN\tCA�AR\tCA�AR\t8.0\t1\n03B00034\t2022-2023 FIN\tCA�AR\tCA�AR\t8.0\t1\n03B00035\t2022-2023 FIN\tCA�AR\tCA�AR\t30.0\t2\n03B00036\t2022-2023 FIN\tCA�AR\tCA�AR\t8.0\t1\n03B00037\t2022-2023 FIN\tCA�AR\tCA�AR\t18.0\t2\n03B00038\t2022-2023 FIN\tCA�AR\tCA�AR\t11.0\t1\n03B00039\t2022-2023 FIN\tCA�AR\tCA�AR\t74.0\t4\n03B00040\t2022-2023 FIN\tCA�AR\tCA�AR\t8.0\t1\n03B00041\t2022-2023 FIN\tCA�AR\tCA�AR\t26.0\t2\n03B00042\t2022-2023 FIN\tCA�AR\tCA�AR\t6.0\t1\n03B00043\t2022-2023 FIN\tCA�AR\tCA�AR\t48.0\t3\n03B00045\t2022-2023 FIN\tCA�AR\tCA�AR\t166.0\t12\n03B00046\t2022-2023 FIN\tCA�AR\tCA�AR\t20.0\t1\n03B00047\t2022-2023 FIN\tCA�AR\tCA�AR\t11.0\t1\n03B00048\t2022-2023 FIN\tCA�AR\tCA�AR\t64.0\t3\n03B00050\t2022-2023 FIN\tCA�AR\tCA�AR\t21.0\t1\n03B00054\t2022-2023 FIN\tCA�AR\tCA�AR\t161.0\t16\n03B00058\t2022-2023 FIN\tCA�AR\tCA�AR\t55.0\t9\n03B00061\t2022-2023 FIN\tCA�AR\tCA�AR\t11.0\t1\n03B00121\t2022-2023 FIN\tCA�AR\tCA�AR\t12.0\t1\n03B00122\t2022-2023 FIN\tCA�AR\tCA�AR\t10.0\t1\n03B00123\t2022-2023 FIN\tCA�AR\tCA�AR\t90.0\t6\n03B00124\t2022-2023 FIN\tCA�AR\tCA�AR\t45.0\t3\n03B00125\t2022-2023 FIN\tCA�AR\tCA�AR\t8.0\t1\n03B00134\t2022-2023 FIN\tCA�AR\tCA�AR\t12.0\t2\n03B00135\t2022-2023 FIN\tCA�AR\tCA�AR\t41.0\t3\n03B00199\t2022-2023 FIN\tCA�AR\tCA�AR\t25.0\t2\n03H00082\t2022-2023 FIN\tCA�AR\tAZOGUES\t6.0\t1\n03H00084\t2022-2023 FIN\tCA�AR\tAZOGUES\t33.0\t3\n03H00085\t2022-2023 FIN\tCA�AR\tCA�AR\t50.0\t3\n03H00086\t2022-2023 FIN\tCA�AR\tAZOGUES\t175.0\t12\n03H00089\t2022-2023 FIN\tCA�AR\tAZOGUES\t150.0\t11\n03H00092\t2022-2023 FIN\tCA�AR\tAZOGUES\t185.0\t10\n03H00093\t2022-2023 FIN\tCA�AR\tAZOGUES\t11.0\t1\n03H00097\t2022-2023 FIN\tCA�AR\tAZOGUES\t12.0\t1\n03H00100\t2022-2023 FIN\tCA�AR\tAZOGUES\t10.0\t1\n03H00105\t2022-2023 FIN\tCA�AR\tAZOGUES\t10.0\t1\n03H00106\t2022-2023 FIN\tCA�AR\tAZOGUES\t442.0\t26\n03H00107\t2022-2023 FIN\tCA�AR\tAZOGUES\t60.0\t3\n03H00110\t2022-2023 FIN\tCA�AR\tAZOGUES\t5.0\t1\n03H00111\t2022-2023 FIN\tCA�AR\tAZOGUES\t188.0\t16\n03H00112\t2022-2023 FIN\tCA�AR\tAZOGUES\t41.0\t3\n03H00118\t2022-2023 FIN\tCA�AR\tAZOGUES\t41.0\t2\n03H00119\t2022-2023 FIN\tCA�AR\tAZOGUES\t39.0\t2\n03H00120\t2022-2023 FIN\tCA�AR\tAZOGUES\t105.0\t9\n03H00121\t2022-2023 FIN\tCA�AR\tAZOGUES\t8.0\t1\n03H00122\t2022-2023 FIN\tCA�AR\tAZOGUES\t35.0\t2\n03H00127\t2022-2023 FIN\tCA�AR\tAZOGUES\t44.0\t3\n03H00128\t2022-2023 FIN\tCA�AR\tAZOGUES\t7.0\t1\n03H00129\t2022-2023 FIN\tCA�AR\tAZOGUES\t170.0\t7\n03H00130\t2022-2023 FIN\tCA�AR\tAZOGUES\t184.0\t13\n03H00131\t2022-2023 FIN\tCA�AR\tAZOGUES\t169.0\t11\n03H00132\t2022-2023 FIN\tCA�AR\tAZOGUES\t461.0\t26\n03H00133\t2022-2023 FIN\tCA�AR\tAZOGUES\t5.0\t1\n03H00137\t2022-2023 FIN\tCA�AR\tAZOGUES\t30.0\t2\n03H00142\t2022-2023 FIN\tCA�AR\tAZOGUES\t447.0\t27\n03H00143\t2022-2023 FIN\tCA�AR\tAZOGUES\t14.0\t1\n03H00144\t2022-2023 FIN\tCA�AR\tAZOGUES\t22.0\t2\n03H00148\t2022-2023 FIN\tCA�AR\tAZOGUES\t3.0\t1\n03H00151\t2022-2023 FIN\tCA�AR\tAZOGUES\t18.0\t2\n03H00153\t2022-2023 FIN\tCA�AR\tCA�AR\t24.0\t2\n03H00157\t2022-2023 FIN\tCA�AR\tAZOGUES\t23.0\t2\n03H00160\t2022-2023 FIN\tCA�AR\tAZOGUES\t89.0\t6\n03H00164\t2022-2023 FIN\tCA�AR\tAZOGUES\t93.0\t4\n03H00165\t2022-2023 FIN\tCA�AR\tAZOGUES\t11.0\t1\n03H00166\t2022-2023 FIN\tCA�AR\tAZOGUES\t60.0\t7\n03H00167\t2022-2023 FIN\tCA�AR\tAZOGUES\t36.0\t2\n03H00169\t2022-2023 FIN\tCA�AR\tAZOGUES\t8.0\t1\n03H00173\t2022-2023 FIN\tCA�AR\tAZOGUES\t10.0\t1\n03H00174\t2022-2023 FIN\tCHIMBORAZO\tALAUSI\t7.0\t1\n03H00176\t2022-2023 FIN\tCA�AR\tAZOGUES\t13.0\t1\n03H00179\t2022-2023 FIN\tCA�AR\tAZOGUES\t18.0\t1\n03H00181\t2022-2023 FIN\tCA�AR\tAZOGUES\t18.0\t2\n03H00183\t2022-2023 FIN\tCA�AR\tAZOGUES\t9.0\t1\n03H00184\t2022-2023 FIN\tCA�AR\tAZOGUES\t67.0\t4\n03H00185\t2022-2023 FIN\tCA�AR\tAZOGUES\t55.0\t3\n03H00186\t2022-2023 FIN\tCHIMBORAZO\tALAUSI\t9.0\t1\n03H00187\t2022-2023 FIN\tCA�AR\tAZOGUES\t139.0\t8\n03H00190\t2022-2023 FIN\tCA�AR\tAZOGUES\t36.0\t3\n03H00191\t2022-2023 FIN\tCA�AR\tAZOGUES\t116.0\t8\n03H00193\t2022-2023 FIN\tCA�AR\tAZOGUES\t9.0\t1\n03H00194\t2022-2023 FIN\tCA�AR\tAZOGUES\t5.0\t1\n03H00195\t2022-2023 FIN\tCA�AR\tAZOGUES\t62.0\t8\n03H00201\t2022-2023 FIN\tCA�AR\tAZOGUES\t168.0\t9\n03H00204\t2022-2023 FIN\tCA�AR\tAZOGUES\t19.0\t1\n03H00207\t2022-2023 FIN\tCA�AR\tAZOGUES\t160.0\t9\n03H00248\t2022-2023 FIN\tCA�AR\tBIBLIAN\t257.0\t13\n03H00252\t2022-2023 FIN\tCA�AR\tBIBLIAN\t27.0\t2\n03H00254\t2022-2023 FIN\tCA�AR\tBIBLIAN\t9.0\t1\n03H00258\t2022-2023 FIN\tCA�AR\tBIBLIAN\t9.0\t1\n03H00260\t2022-2023 FIN\tCA�AR\tBIBLIAN\t186.0\t14\n03H00263\t2022-2023 FIN\tCA�AR\tBIBLIAN\t123.0\t9\n03H00265\t2022-2023 FIN\tCA�AR\tBIBLIAN\t23.0\t2\n03H00268\t2022-2023 FIN\tCA�AR\tBIBLIAN\t6.0\t1\n03H00269\t2022-2023 FIN\tCA�AR\tBIBLIAN\t55.0\t3\n03H00271\t2022-2023 FIN\tCA�AR\tBIBLIAN\t13.0\t1\n03H00277\t2022-2023 FIN\tCA�AR\tBIBLIAN\t47.0\t3\n03H00278\t2022-2023 FIN\tCA�AR\tBIBLIAN\t5.0\t1\n03H00279\t2022-2023 FIN\tCA�AR\tBIBLIAN\t8.0\t1\n03H00302\t2022-2023 FIN\tCA�AR\tCA�AR\t13.0\t1\n03H00306\t2022-2023 FIN\tCA�AR\tCA�AR\t10.0\t1\n03H00321\t2022-2023 FIN\tCA�AR\tCA�AR\t40.0\t2\n03H00324\t2022-2023 FIN\tCA�AR\tCA�AR\t4.0\t1\n03H00337\t2022-2023 FIN\tCA�AR\tCA�AR\t45.0\t2\n03H00338\t2022-2023 FIN\tCA�AR\tCA�AR\t4.0\t1\n03H00339\t2022-2023 FIN\tCA�AR\tCA�AR\t31.0\t1\n03H00340\t2022-2023 FIN\tCA�AR\tCA�AR\t27.0\t2\n03H00341\t2022-2023 FIN\tCA�AR\tCA�AR\t34.0\t2\n03H00343\t2022-2023 FIN\tCA�AR\tCA�AR\t7.0\t1\n03H00344\t2022-2023 FIN\tCA�AR\tCA�AR\t259.0\t21\n03H00345\t2022-2023 FIN\tCA�AR\tCA�AR\t32.0\t2\n03H00348\t2022-2023 FIN\tCA�AR\tCA�AR\t12.0\t1\n03H00349\t2022-2023 FIN\tCA�AR\tCA�AR\t12.0\t1\n03H00350\t2022-2023 FIN\tCA�AR\tCA�AR\t3.0\t1\n03H00354\t2022-2023 FIN\tCA�AR\tCA�AR\t10.0\t1\n03H00357\t2022-2023 FIN\tCA�AR\tCA�AR\t32.0\t2\n03H00358\t2022-2023 FIN\tCA�AR\tCA�AR\t19.0\t1\n03H00365\t2022-2023 FIN\tCA�AR\tCA�AR\t6.0\t1\n03H00366\t2022-2023 FIN\tCA�AR\tCA�AR\t203.0\t13\n03H00368\t2022-2023 FIN\tCA�AR\tCA�AR\t9.0\t1\n03H00369\t2022-2023 FIN\tCA�AR\tCA�AR\t311.0\t20\n03H00370\t2022-2023 FIN\tCA�AR\tCA�AR\t101.0\t6\n03H00372\t2022-2023 FIN\tCA�AR\tCA�AR\t1.0\t1\n03H00373\t2022-2023 FIN\tCA�AR\tCA�AR\t8.0\t2\n03H00374\t2022-2023 FIN\tCA�AR\tCA�AR\t20.0\t2\n03H00379\t2022-2023 FIN\tCA�AR\tCA�AR\t21.0\t1\n03H00380\t2022-2023 FIN\tCA�AR\tCA�AR\t356.0\t22\n03H00383\t2022-2023 FIN\tCA�AR\tCA�AR\t13.0\t1\n03H00391\t2022-2023 FIN\tCA�AR\tCA�AR\t48.0\t3\n03H00393\t2022-2023 FIN\tCA�AR\tCA�AR\t20.0\t1\n03H00394\t2022-2023 FIN\tCA�AR\tCA�AR\t9.0\t1\n03H00398\t2022-2023 FIN\tCA�AR\tCA�AR\t7.0\t1\n03H00399\t2022-2023 FIN\tCA�AR\tCA�AR\t14.0\t1\n03H00401\t2022-2023 FIN\tCA�AR\tCA�AR\t2.0\t1\n03H00403\t2022-2023 FIN\tCA�AR\tCA�AR\t126.0\t9\n03H00404\t2022-2023 FIN\tCA�AR\tCA�AR\t4.0\t1\n03H00407\t2022-2023 FIN\tCA�AR\tCA�AR\t283.0\t26\n03H00410\t2022-2023 FIN\tCA�AR\tCA�AR\t139.0\t9\n03H00411\t2022-2023 FIN\tCA�AR\tCA�AR\t2.0\t1\n03H00413\t2022-2023 FIN\tCA�AR\tCA�AR\t46.0\t3\n03H00419\t2022-2023 FIN\tCA�AR\tCA�AR\t27.0\t2\n03H00422\t2022-2023 FIN\tCA�AR\tCA�AR\t5.0\t1\n03H00424\t2022-2023 FIN\tCA�AR\tCA�AR\t259.0\t17\n03H00427\t2022-2023 FIN\tCA�AR\tCA�AR\t67.0\t4\n03H00428\t2022-2023 FIN\tCA�AR\tCA�AR\t191.0\t10\n03H00432\t2022-2023 FIN\tCA�AR\tCA�AR\t192.0\t12\n03H00433\t2022-2023 FIN\tCA�AR\tCA�AR\t43.0\t3\n03H00437\t2022-2023 FIN\tCA�AR\tCA�AR\t18.0\t2\n03H00438\t2022-2023 FIN\tCA�AR\tCA�AR\t8.0\t1\n03H00439\t2022-2023 FIN\tCA�AR\tCA�AR\t225.0\t15\n03H00440\t2022-2023 FIN\tCA�AR\tCA�AR\t15.0\t1\n03H00441\t2022-2023 FIN\tCA�AR\tCA�AR\t30.0\t2\n03H00442\t2022-2023 FIN\tCA�AR\tCA�AR\t27.0\t2\n03H00443\t2022-2023 FIN\tCA�AR\tCA�AR\t30.0\t2\n03H00444\t2022-2023 FIN\tCA�AR\tCA�AR\t90.0\t4\n03H00448\t2022-2023 FIN\tCA�AR\tCA�AR\t26.0\t2\n03H00449\t2022-2023 FIN\tCA�AR\tCA�AR\t26.0\t2\n03H00451\t2022-2023 FIN\tCA�AR\tCA�AR\t57.0\t3\n03H00452\t2022-2023 FIN\tCA�AR\tCA�AR\t118.0\t11\n03H00453\t2022-2023 FIN\tCA�AR\tCA�AR\t513.0\t21\n03H00454\t2022-2023 FIN\tCA�AR\tCA�AR\t2.0\t1\n03H00460\t2022-2023 FIN\tCA�AR\tCA�AR\t6.0\t1\n03H00461\t2022-2023 FIN\tCA�AR\tCA�AR\t32.0\t2\n03H00463\t2022-2023 FIN\tCA�AR\tCA�AR\t382.0\t26\n03H00464\t2022-2023 FIN\tCA�AR\tCA�AR\t24.0\t2\n03H00465\t2022-2023 FIN\tCA�AR\tCA�AR\t4.0\t1\n03H00466\t2022-2023 FIN\tCA�AR\tCA�AR\t28.0\t1\n03H00469\t2022-2023 FIN\tCA�AR\tCA�AR\t6.0\t1\n03H00470\t2022-2023 FIN\tCA�AR\tCA�AR\t40.0\t2\n03H00471\t2022-2023 FIN\tCA�AR\tCA�AR\t107.0\t10\n03H00473\t2022-2023 FIN\tCA�AR\tCA�AR\t16.0\t1\n03H00475\t2022-2023 FIN\tCA�AR\tCA�AR\t163.0\t9\n03H00476\t2022-2023 FIN\tCA�AR\tCA�AR\t287.0\t19\n03H00479\t2022-2023 FIN\tCA�AR\tCA�AR\t547.0\t23\n03H00480\t2022-2023 FIN\tCA�AR\tCA�AR\t15.0\t1\n03H00530\t2022-2023 FIN\tCA�AR\tLA TRONCAL\t899.0\t40\n03H00532\t2022-2023 FIN\tCA�AR\tLA TRONCAL\t29.0\t1\n03H00533\t2022-2023 FIN\tCA�AR\tLA TRONCAL\t6.0\t1\n03H00538\t2022-2023 FIN\tCA�AR\tLA TRONCAL\t53.0\t2\n03H00541\t2022-2023 FIN\tCA�AR\tLA TRONCAL\t107.0\t4\n03H00543\t2022-2023 FIN\tCA�AR\tLA TRONCAL\t102.0\t3\n03H00545\t2022-2023 FIN\tCA�AR\tLA TRONCAL\t19.0\t1\n03H00549\t2022-2023 FIN\tCA�AR\tLA TRONCAL\t5.0\t1\n03H00550\t2022-2023 FIN\tCA�AR\tLA TRONCAL\t22.0\t1\n03H00551\t2022-2023 FIN\tCA�AR\tLA TRONCAL\t49.0\t2\n03H00552\t2022-2023 FIN\tCA�AR\tLA TRONCAL\t38.0\t2\n03H00554\t2022-2023 FIN\tCA�AR\tLA TRONCAL\t1045.0\t45\n03H00555\t2022-2023 FIN\tCA�AR\tLA TRONCAL\t233.0\t11\n03H00558\t2022-2023 FIN\tCA�AR\tLA TRONCAL\t651.0\t30\n03H00561\t2022-2023 FIN\tCA�AR\tLA TRONCAL\t82.0\t3\n03H00574\t2022-2023 FIN\tCA�AR\tLA TRONCAL\t57.0\t2\n03H00575\t2022-2023 FIN\tCA�AR\tLA TRONCAL\t1009.0\t38\n03H00612\t2022-2023 FIN\tCA�AR\tDELEG\t193.0\t13\n03H00614\t2022-2023 FIN\tCA�AR\tDELEG\t4.0\t1\n03H00615\t2022-2023 FIN\tCA�AR\tDELEG\t5.0\t1\n03H00685\t2022-2023 FIN\tCA�AR\tCA�AR\t8.0\t1\n03H00688\t2022-2023 FIN\tCA�AR\tCA�AR\t5.0\t1\n03H00710\t2022-2023 FIN\tCA�AR\tCA�AR\t10.0\t1\n03H00712\t2022-2023 FIN\tCA�AR\tCA�AR\t3.0\t1\n03H00763\t2022-2023 FIN\tCHIMBORAZO\tALAUSI\t120.0\t7\n03H00795\t2022-2023 FIN\tCA�AR\tLA TRONCAL\t1202.0\t45\n04B00001\t2022-2023 FIN\tCARCHI\tTULCAN\t24.0\t1\n04B00002\t2022-2023 FIN\tCARCHI\tTULCAN\t43.0\t3\n04B00003\t2022-2023 FIN\tCARCHI\tTULCAN\t37.0\t2\n04B00004\t2022-2023 FIN\tCARCHI\tTULCAN\t54.0\t5\n04B00005\t2022-2023 FIN\tCARCHI\tTULCAN\t5.0\t1\n04B00006\t2022-2023 FIN\tCARCHI\tTULCAN\t32.0\t2\n04B00007\t2022-2023 FIN\tCARCHI\tTULCAN\t101.0\t5\n04B00008\t2022-2023 FIN\tCARCHI\tTULCAN\t37.0\t2\n04B00009\t2022-2023 FIN\tCARCHI\tTULCAN\t18.0\t1\n04B00010\t2022-2023 FIN\tCARCHI\tTULCAN\t8.0\t1\n04B00011\t2022-2023 FIN\tCARCHI\tTULCAN\t54.0\t2\n04B00012\t2022-2023 FIN\tCARCHI\tTULCAN\t49.0\t5\n04B00013\t2022-2023 FIN\tCARCHI\tTULCAN\t7.0\t1\n04B00014\t2022-2023 FIN\tCARCHI\tTULCAN\t313.0\t18\n04H00062\t2022-2023 FIN\tCARCHI\tTULCAN\t3.0\t2\n04H00063\t2022-2023 FIN\tCARCHI\tTULCAN\t5.0\t1\n04H00066\t2022-2023 FIN\tCARCHI\tTULCAN\t28.0\t3\n04H00068\t2022-2023 FIN\tCARCHI\tTULCAN\t277.0\t20\n04H00069\t2022-2023 FIN\tCARCHI\tTULCAN\t8.0\t2\n04H00070\t2022-2023 FIN\tCARCHI\tTULCAN\t1464.0\t66\n04H00072\t2022-2023 FIN\tCARCHI\tTULCAN\t121.0\t7\n04H00073\t2022-2023 FIN\tCARCHI\tTULCAN\t40.0\t3\n04H00074\t2022-2023 FIN\tCARCHI\tTULCAN\t10.0\t2\n04H00080\t2022-2023 FIN\tCARCHI\tTULCAN\t6.0\t1\n04H00081\t2022-2023 FIN\tCARCHI\tTULCAN\t9.0\t2\n04H00083\t2022-2023 FIN\tCARCHI\tTULCAN\t18.0\t3\n04H00093\t2022-2023 FIN\tCARCHI\tTULCAN\t12.0\t2\n04H00095\t2022-2023 FIN\tCARCHI\tTULCAN\t257.0\t16\n04H00096\t2022-2023 FIN\tCARCHI\tTULCAN\t25.0\t1\n04H00097\t2022-2023 FIN\tCARCHI\tTULCAN\t19.0\t1\n04H00099\t2022-2023 FIN\tCARCHI\tTULCAN\t45.0\t2\n04H00102\t2022-2023 FIN\tCARCHI\tTULCAN\t7.0\t1\n04H00107\t2022-2023 FIN\tCARCHI\tTULCAN\t66.0\t5\n04H00108\t2022-2023 FIN\tCARCHI\tTULCAN\t28.0\t1\n04H00109\t2022-2023 FIN\tCARCHI\tTULCAN\t58.0\t4\n04H00110\t2022-2023 FIN\tCARCHI\tTULCAN\t451.0\t29\n04H00118\t2022-2023 FIN\tCARCHI\tTULCAN\t38.0\t4\n04H00131\t2022-2023 FIN\tCARCHI\tTULCAN\t521.0\t25\n04H00140\t2022-2023 FIN\tCARCHI\tTULCAN\t553.0\t37\n04H00154\t2022-2023 FIN\tCARCHI\tBOLIVAR\t10.0\t1\n04H00158\t2022-2023 FIN\tCARCHI\tBOLIVAR\t11.0\t1\n04H00159\t2022-2023 FIN\tCARCHI\tBOLIVAR\t6.0\t1\n04H00160\t2022-2023 FIN\tCARCHI\tBOLIVAR\t105.0\t13\n04H00161\t2022-2023 FIN\tCARCHI\tBOLIVAR\t8.0\t1\n04H00169\t2022-2023 FIN\tCARCHI\tBOLIVAR\t2.0\t1\n04H00170\t2022-2023 FIN\tCARCHI\tBOLIVAR\t15.0\t1\n04H00171\t2022-2023 FIN\tCARCHI\tBOLIVAR\t133.0\t15\n04H00177\t2022-2023 FIN\tCARCHI\tBOLIVAR\t64.0\t4\n04H00179\t2022-2023 FIN\tCARCHI\tBOLIVAR\t5.0\t1\n04H00181\t2022-2023 FIN\tCARCHI\tBOLIVAR\t229.0\t17\n04H00185\t2022-2023 FIN\tCARCHI\tBOLIVAR\t240.0\t19\n04H00186\t2022-2023 FIN\tCARCHI\tBOLIVAR\t38.0\t2\n04H00191\t2022-2023 FIN\tCARCHI\tBOLIVAR\t234.0\t19\n04H00197\t2022-2023 FIN\tCARCHI\tBOLIVAR\t391.0\t19\n04H00203\t2022-2023 FIN\tCARCHI\tESPEJO\t477.0\t33\n04H00221\t2022-2023 FIN\tCARCHI\tESPEJO\t6.0\t1\n04H00228\t2022-2023 FIN\tCARCHI\tESPEJO\t27.0\t1\n04H00241\t2022-2023 FIN\tCARCHI\tESPEJO\t562.0\t37\n04H00270\t2022-2023 FIN\tCARCHI\tMIRA\t7.0\t1\n04H00271\t2022-2023 FIN\tCARCHI\tMIRA\t20.0\t2\n04H00272\t2022-2023 FIN\tCARCHI\tMIRA\t287.0\t19\n04H00274\t2022-2023 FIN\tCARCHI\tMIRA\t9.0\t1\n04H00275\t2022-2023 FIN\tCARCHI\tMIRA\t14.0\t1\n04H00277\t2022-2023 FIN\tCARCHI\tMIRA\t13.0\t1\n04H00279\t2022-2023 FIN\tCARCHI\tMIRA\t6.0\t1\n04H00286\t2022-2023 FIN\tCARCHI\tMIRA\t18.0\t2\n04H00290\t2022-2023 FIN\tCARCHI\tMIRA\t88.0\t10\n04H00292\t2022-2023 FIN\tCARCHI\tMIRA\t18.0\t1\n04H00294\t2022-2023 FIN\tCARCHI\tMIRA\t16.0\t1\n04H00295\t2022-2023 FIN\tCARCHI\tMIRA\t9.0\t1\n04H00296\t2022-2023 FIN\tCARCHI\tMIRA\t17.0\t1\n04H00297\t2022-2023 FIN\tCARCHI\tMIRA\t4.0\t1\n04H00298\t2022-2023 FIN\tCARCHI\tMIRA\t4.0\t1\n04H00299\t2022-2023 FIN\tCARCHI\tMIRA\t12.0\t1\n04H00301\t2022-2023 FIN\tCARCHI\tMIRA\t3.0\t1\n04H00302\t2022-2023 FIN\tCARCHI\tMIRA\t20.0\t2\n04H00305\t2022-2023 FIN\tCARCHI\tMIRA\t21.0\t2\n04H00308\t2022-2023 FIN\tCARCHI\tMIRA\t625.0\t39\n04H00313\t2022-2023 FIN\tCARCHI\tMIRA\t193.0\t20\n04H00315\t2022-2023 FIN\tCARCHI\tMIRA\t5.0\t1\n04H00367\t2022-2023 FIN\tCARCHI\tMONTUFAR\t12.0\t1\n04H00368\t2022-2023 FIN\tCARCHI\tMONTUFAR\t395.0\t28\n04H00370\t2022-2023 FIN\tCARCHI\tMONTUFAR\t23.0\t2\n04H00372\t2022-2023 FIN\tCARCHI\tMONTUFAR\t27.0\t3\n04H00373\t2022-2023 FIN\tCARCHI\tMONTUFAR\t21.0\t2\n04H00376\t2022-2023 FIN\tCARCHI\tMONTUFAR\t28.0\t2\n04H00378\t2022-2023 FIN\tCARCHI\tMONTUFAR\t18.0\t2\n04H00383\t2022-2023 FIN\tCARCHI\tMONTUFAR\t446.0\t31\n04H00386\t2022-2023 FIN\tCARCHI\tMONTUFAR\t11.0\t1\n04H00387\t2022-2023 FIN\tCARCHI\tMONTUFAR\t7.0\t1\n04H00388\t2022-2023 FIN\tCARCHI\tMONTUFAR\t28.0\t2\n04H00389\t2022-2023 FIN\tCARCHI\tMONTUFAR\t36.0\t3\n04H00391\t2022-2023 FIN\tCARCHI\tMONTUFAR\t9.0\t1\n04H00394\t2022-2023 FIN\tCARCHI\tMONTUFAR\t205.0\t18\n04H00397\t2022-2023 FIN\tCARCHI\tMONTUFAR\t16.0\t1\n04H00421\t2022-2023 FIN\tCARCHI\tSAN PEDRO DE HUACA\t251.0\t18\n04H00423\t2022-2023 FIN\tCARCHI\tESPEJO\t5.0\t1\n04H00433\t2022-2023 FIN\tCARCHI\tTULCAN\t15.0\t1\n04H00496\t2022-2023 FIN\tCARCHI\tTULCAN\t897.0\t51\n04H00504\t2022-2023 FIN\tCARCHI\tBOLIVAR\t485.0\t33\n05B00003\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t81.0\t10\n05B00005\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t16.0\t1\n05B00006\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t3.0\t1\n05B00007\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t8.0\t1\n05B00008\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t73.0\t10\n05B00009\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t16.0\t3\n05B00012\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t5.0\t1\n05B00013\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t104.0\t16\n05B00014\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t16.0\t1\n05B00015\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t26.0\t1\n05B00026\t2022-2023 FIN\tCOTOPAXI\tPUJILI\t132.0\t13\n05B00027\t2022-2023 FIN\tCOTOPAXI\tPUJILI\t80.0\t7\n05B00028\t2022-2023 FIN\tCOTOPAXI\tPUJILI\t9.0\t1\n05B00030\t2022-2023 FIN\tCOTOPAXI\tPUJILI\t3.0\t1\n05B00032\t2022-2023 FIN\tCOTOPAXI\tPUJILI\t18.0\t1\n05B00033\t2022-2023 FIN\tCOTOPAXI\tPUJILI\t15.0\t1\n05B00034\t2022-2023 FIN\tCOTOPAXI\tPUJILI\t6.0\t1\n05B00035\t2022-2023 FIN\tCOTOPAXI\tPUJILI\t25.0\t2\n05B00037\t2022-2023 FIN\tCOTOPAXI\tPUJILI\t45.0\t3\n05B00038\t2022-2023 FIN\tCOTOPAXI\tPUJILI\t4.0\t1\n05B00039\t2022-2023 FIN\tCOTOPAXI\tPUJILI\t9.0\t1\n05B00040\t2022-2023 FIN\tCOTOPAXI\tPUJILI\t11.0\t1\n05B00041\t2022-2023 FIN\tCOTOPAXI\tPUJILI\t9.0\t1\n05B00042\t2022-2023 FIN\tCOTOPAXI\tPUJILI\t91.0\t10\n05B00045\t2022-2023 FIN\tCOTOPAXI\tPUJILI\t105.0\t9\n05B00046\t2022-2023 FIN\tCOTOPAXI\tPUJILI\t4.0\t1\n05B00047\t2022-2023 FIN\tCOTOPAXI\tPUJILI\t148.0\t15\n05B00050\t2022-2023 FIN\tCOTOPAXI\tPUJILI\t106.0\t17\n05B00051\t2022-2023 FIN\tCOTOPAXI\tPUJILI\t13.0\t1\n05B00052\t2022-2023 FIN\tCOTOPAXI\tPUJILI\t20.0\t1\n05B00055\t2022-2023 FIN\tCOTOPAXI\tPUJILI\t6.0\t1\n05B00057\t2022-2023 FIN\tCOTOPAXI\tPUJILI\t16.0\t2\n05B00058\t2022-2023 FIN\tCOTOPAXI\tPUJILI\t11.0\t1\n05B00060\t2022-2023 FIN\tCOTOPAXI\tPUJILI\t23.0\t2\n05B00061\t2022-2023 FIN\tCOTOPAXI\tPUJILI\t5.0\t1\n05B00068\t2022-2023 FIN\tCOTOPAXI\tSALCEDO\t27.0\t4\n05B00069\t2022-2023 FIN\tCOTOPAXI\tSALCEDO\t70.0\t11\n05B00070\t2022-2023 FIN\tCOTOPAXI\tSALCEDO\t20.0\t2\n05B00071\t2022-2023 FIN\tCOTOPAXI\tSALCEDO\t108.0\t8\n05B00078\t2022-2023 FIN\tCOTOPAXI\tSAQUISILI\t162.0\t18\n05B00080\t2022-2023 FIN\tCOTOPAXI\tSAQUISILI\t14.0\t1\n05B00081\t2022-2023 FIN\tCOTOPAXI\tSAQUISILI\t10.0\t1\n05B00083\t2022-2023 FIN\tCOTOPAXI\tSAQUISILI\t7.0\t1\n05B00084\t2022-2023 FIN\tCOTOPAXI\tSAQUISILI\t4.0\t1\n05B00085\t2022-2023 FIN\tCOTOPAXI\tSAQUISILI\t5.0\t1\n05B00087\t2022-2023 FIN\tCOTOPAXI\tSAQUISILI\t28.0\t2\n05B00088\t2022-2023 FIN\tCOTOPAXI\tSIGCHOS\t75.0\t8\n05B00089\t2022-2023 FIN\tCOTOPAXI\tSIGCHOS\t27.0\t2\n05B00090\t2022-2023 FIN\tCOTOPAXI\tSIGCHOS\t126.0\t14\n05B00091\t2022-2023 FIN\tCOTOPAXI\tSIGCHOS\t112.0\t12\n05B00092\t2022-2023 FIN\tCOTOPAXI\tSIGCHOS\t41.0\t2\n05B00093\t2022-2023 FIN\tCOTOPAXI\tSIGCHOS\t11.0\t1\n05B00094\t2022-2023 FIN\tCOTOPAXI\tSIGCHOS\t30.0\t1\n05B00095\t2022-2023 FIN\tCOTOPAXI\tSIGCHOS\t15.0\t1\n05B00096\t2022-2023 FIN\tCOTOPAXI\tSIGCHOS\t5.0\t1\n05B00097\t2022-2023 FIN\tCOTOPAXI\tSIGCHOS\t6.0\t1\n05B00098\t2022-2023 FIN\tCOTOPAXI\tSIGCHOS\t6.0\t1\n05B00102\t2022-2023 FIN\tCOTOPAXI\tPUJILI\t14.0\t1\n05B00103\t2022-2023 FIN\tCOTOPAXI\tPUJILI\t9.0\t1\n05B00104\t2022-2023 FIN\tCOTOPAXI\tPUJILI\t50.0\t2\n05B00105\t2022-2023 FIN\tCOTOPAXI\tPUJILI\t54.0\t3\n05B00110\t2022-2023 FIN\tCOTOPAXI\tSIGCHOS\t102.0\t10\n05B00111\t2022-2023 FIN\tCOTOPAXI\tSIGCHOS\t183.0\t15\n05B00112\t2022-2023 FIN\tCOTOPAXI\tPUJILI\t7.0\t1\n05B00114\t2022-2023 FIN\tCOTOPAXI\tPUJILI\t1293.0\t70\n05B00115\t2022-2023 FIN\tCOTOPAXI\tSIGCHOS\t29.0\t2\n05B00116\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t8.0\t1\n05B00121\t2022-2023 FIN\tCOTOPAXI\tPUJILI\t14.0\t1\n05B00122\t2022-2023 FIN\tCOTOPAXI\tPUJILI\t26.0\t1\n05B00123\t2022-2023 FIN\tCOTOPAXI\tPUJILI\t18.0\t1\n05B00124\t2022-2023 FIN\tCOTOPAXI\tSALCEDO\t104.0\t15\n05B00127\t2022-2023 FIN\tCOTOPAXI\tSIGCHOS\t8.0\t1\n05B00128\t2022-2023 FIN\tCOTOPAXI\tSIGCHOS\t19.0\t2\n05B00132\t2022-2023 FIN\tCOTOPAXI\tPANGUA\t11.0\t1\n05B00133\t2022-2023 FIN\tCOTOPAXI\tPANGUA\t22.0\t1\n05B00134\t2022-2023 FIN\tCOTOPAXI\tPANGUA\t12.0\t1\n05B00136\t2022-2023 FIN\tCOTOPAXI\tPANGUA\t79.0\t7\n05B00137\t2022-2023 FIN\tCOTOPAXI\tPANGUA\t9.0\t1\n05B00138\t2022-2023 FIN\tCOTOPAXI\tPUJILI\t121.0\t10\n05H00120\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t383.0\t23\n05H00124\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t659.0\t36\n05H00133\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t592.0\t32\n05H00141\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t91.0\t5\n05H00143\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t209.0\t10\n05H00145\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t94.0\t6\n05H00147\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t997.0\t47\n05H00151\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t1167.0\t51\n05H00154\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t221.0\t18\n05H00158\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t749.0\t38\n05H00161\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t13.0\t2\n05H00165\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t213.0\t14\n05H00166\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t358.0\t17\n05H00170\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t73.0\t4\n05H00171\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t131.0\t10\n05H00173\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t31.0\t3\n05H00174\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t263.0\t20\n05H00176\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t45.0\t3\n05H00178\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t7.0\t2\n05H00180\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t22.0\t3\n05H00182\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t36.0\t2\n05H00183\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t210.0\t14\n05H00184\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t206.0\t12\n05H00185\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t212.0\t16\n05H00186\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t782.0\t38\n05H00190\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t48.0\t3\n05H00191\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t135.0\t11\n05H00201\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t1562.0\t66\n05H00205\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t46.0\t4\n05H00206\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t20.0\t3\n05H00208\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t1143.0\t48\n05H00210\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t535.0\t25\n05H00213\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t47.0\t6\n05H00215\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t32.0\t3\n05H00216\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t17.0\t1\n05H00219\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t40.0\t1\n05H00220\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t33.0\t2\n05H00221\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t1839.0\t75\n05H00222\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t118.0\t10\n05H00223\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t81.0\t4\n05H00224\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t60.0\t5\n05H00228\t2022-2023 FIN\tCOTOPAXI\tLATACUNGA\t43.0\t2\n"
+          },
+          {
+            "type": "HTML",
+            "data": "<div class=\"result-alert alert-warning\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button><strong>Output is truncated</strong> to 1000 rows. Learn more about <strong>zeppelin.spark.maxResult</strong></div>\n"
+          }
+        ]
+      }
+    },
+    {
+      "text": "%sql\r\nSELECT Provincia, COUNT(*) AS total_registros, SUM(Total_Estudiantes) AS suma_estudiantes\r\nFROM educacion_union\r\nGROUP BY Provincia\r\nORDER BY suma_estudiantes DESC",
+      "user": "anonymous",
+      "dateUpdated": "2025-07-25T16:06:19+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "pieChart",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "Provincia": "string",
+                      "total_registros": "string",
+                      "suma_estudiantes": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            },
+            "helium": {}
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "Provincia\ttotal_registros\tsuma_estudiantes\nGUAYAS\t57813\t1.7722461466E7\nPICHINCHA\t34864\t1.2168158557000004E7\nMANABI\t47680\t6854227.251999999\nLOS RIOS\t17888\t3901482.0859999987\nAZUAY\t15887\t3476395.294\nESMERALDAS\t17277\t3059548.2409999995\nEL ORO\t11513\t2998587.4390000002\nTUNGURAHUA\t6553\t2308652.3829999994\nSANTO DOMINGO DE LOS TSACHILAS\t8062\t2182371.9259999995\nLOJA\t21173\t2148151.83\nCHIMBORAZO\t11742\t2121045.002\nIMBABURA\t6948\t2060036.939\nCOTOPAXI\t10777\t2056686.5749999997\nSANTA ELENA\t4555\t1662372.6730000004\nSUCUMBIOS\t8822\t1075606.128\nMORONA SANTIAGO\t11589\t1074277.353\nCAÑAR\t6389\t1058435.224\nBOLIVAR\t8880\t938264.155\nORELLANA\t7407\t935064.5979999999\nNAPO\t5479\t725665.7999999999\nCARCHI\t3868\t724957.5240000002\nPASTAZA\t5960\t605976.0830000001\nZAMORA CHINCHIPE\t6083\t584835.611\nGALAPAGOS\t418\t124044.172\nZONA NO DELIMITADA\t716\t82394.0\nCA�AR\t339\t63413.0\nZONA EN ESTUDIO\t8\t358.0\nnull\t159453\tnull\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://10.0.5.2:4040/jobs/job?id=40",
+              "$$hashKey": "object:5745"
+            },
+            {
+              "jobUrl": "http://10.0.5.2:4040/jobs/job?id=41",
+              "$$hashKey": "object:5746"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1753393987244_869682167",
+      "id": "paragraph_1753393987244_869682167",
+      "dateCreated": "2025-07-24T21:53:07+0000",
+      "dateStarted": "2025-07-24T21:53:27+0000",
+      "dateFinished": "2025-07-24T21:53:28+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:553"
+    },
+    {
+      "text": "%md\r\n# Proceso completo de Integración, Limpieza y Carga de Datos Educativos a MySQL usando Apache Zeppelin, Spark y Bash\r\n\r\n---\r\n\r\n## **1. Carga de archivos en Spark**\r\n\r\nSe cargaron tres archivos CSV desde distintas fuentes oficiales:\r\n\r\n- **2_MINEDUC_RegistrosAdministrativos_2022-2023Fin.csv**\r\n- **registro-administrativo-historico_2009-2024-inicio.csv**\r\n- **ineval_serestudiante2022_2023_2023diciembre.csv**\r\n\r\nEl objetivo era unificar la información relevante sobre instituciones educativas a nivel nacional.\r\n\r\n---\r\n\r\n## **2. Inspección y Estandarización de Columnas**\r\n\r\nSe identificaron y seleccionaron las columnas claves:\r\n- `AMIE` (código de institución)\r\n- `anio_lectivo`\r\n- `Provincia`\r\n- `Canton`\r\n- `Total_Estudiantes`\r\n- `Total_Docentes`\r\n\r\nSe estandarizaron nombres y se agregaron columnas nulas cuando fue necesario para compatibilidad.\r\n\r\n---\r\n\r\n## **3. Unión y Homologación de DataFrames**\r\n\r\nSe procesaron los tres DataFrames para garantizar que tuvieran la misma estructura.  \r\nSe usaron funciones como `withColumnRenamed` y `withColumn` en Spark/Scala.\r\n\r\nLuego, se unificaron usando `unionByName` para obtener un solo DataFrame consolidado.\r\n\r\n---\r\n\r\n## **4. Exportación y Limpieza Final en Bash**\r\n\r\nEl DataFrame final se exportó a un CSV único.  \r\nSe aplicaron scripts bash para:\r\n\r\n- Reemplazar valores vacíos (`\"\"`, `,`) por `NULL`.\r\n- Corregir líneas con problemas de formato.\r\n- Eliminar filas basura o vacías.\r\n\r\nEjemplo de comandos utilizados:\r\n```bash\r\nsed -i 's/,\"\",/,NULL,/g; s/,\"$/NULL/g; s/,,/,NULL,/g; s/,$/,NULL/' resultado_final_union_todo.csv\r\nawk '!/^\"\"/' resultado_final_union_todo.csv > resultado_final_union_todo_limpio.csv\r\nsed -i 's/,\"\"$/\\,NULL/' resultado_final_union_todo_limpio.csv\r\n5. Carga a MySQL\r\nEl archivo limpio fue movido a /var/lib/mysql-files/ y cargado en una tabla SQL con:\r\n\r\nsql\r\nCopiar\r\nEditar\r\nLOAD DATA INFILE '/var/lib/mysql-files/resultado_final_union_todo_limpio.csv'\r\nINTO TABLE union_educacion\r\nFIELDS TERMINATED BY ','\r\nOPTIONALLY ENCLOSED BY '\"'\r\nLINES TERMINATED BY '\\n'\r\nIGNORE 1 LINES\r\n(AMIE, anio_lectivo, Provincia, Canton, Total_Estudiantes, Total_Docentes);\r\n6. Validación y Consultas Iniciales\r\nSe comprobó la carga correcta y la calidad de los datos con consultas SQL, por ejemplo:\r\nSELECT COUNT(*) FROM union_educacion;\r\nSELECT Provincia, COUNT(DISTINCT AMIE) as Instituciones FROM union_educacion GROUP BY Provincia;\r\nSELECT * FROM union_educacion WHERE Total_Estudiantes IS NULL OR Total_Docentes IS NULL LIMIT 10;\r\n",
+      "user": "anonymous",
+      "dateUpdated": "2025-07-24T22:18:33+0000",
+      "progress": 0,
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "<div class=\"markdown-body\">\n<h1>Proceso completo de Integración, Limpieza y Carga de Datos Educativos a MySQL usando Apache Zeppelin, Spark y Bash</h1>\n<hr />\n<h2><strong>1. Carga de archivos en Spark</strong></h2>\n<p>Se cargaron tres archivos CSV desde distintas fuentes oficiales:</p>\n<ul>\n<li><strong>2_MINEDUC_RegistrosAdministrativos_2022-2023Fin.csv</strong></li>\n<li><strong>registro-administrativo-historico_2009-2024-inicio.csv</strong></li>\n<li><strong>ineval_serestudiante2022_2023_2023diciembre.csv</strong></li>\n</ul>\n<p>El objetivo era unificar la información relevante sobre instituciones educativas a nivel nacional.</p>\n<hr />\n<h2><strong>2. Inspección y Estandarización de Columnas</strong></h2>\n<p>Se identificaron y seleccionaron las columnas claves:</p>\n<ul>\n<li><code>AMIE</code> (código de institución)</li>\n<li><code>anio_lectivo</code></li>\n<li><code>Provincia</code></li>\n<li><code>Canton</code></li>\n<li><code>Total_Estudiantes</code></li>\n<li><code>Total_Docentes</code></li>\n</ul>\n<p>Se estandarizaron nombres y se agregaron columnas nulas cuando fue necesario para compatibilidad.</p>\n<hr />\n<h2><strong>3. Unión y Homologación de DataFrames</strong></h2>\n<p>Se procesaron los tres DataFrames para garantizar que tuvieran la misma estructura.<br />\nSe usaron funciones como <code>withColumnRenamed</code> y <code>withColumn</code> en Spark/Scala.</p>\n<p>Luego, se unificaron usando <code>unionByName</code> para obtener un solo DataFrame consolidado.</p>\n<hr />\n<h2><strong>4. Exportación y Limpieza Final en Bash</strong></h2>\n<p>El DataFrame final se exportó a un CSV único.<br />\nSe aplicaron scripts bash para:</p>\n<ul>\n<li>Reemplazar valores vacíos (<code>&quot;&quot;</code>, <code>,</code>) por <code>NULL</code>.</li>\n<li>Corregir líneas con problemas de formato.</li>\n<li>Eliminar filas basura o vacías.</li>\n</ul>\n<p>Ejemplo de comandos utilizados:</p>\n<pre><code class=\"language-bash\">sed -i 's/,&quot;&quot;,/,NULL,/g; s/,&quot;$/NULL/g; s/,,/,NULL,/g; s/,$/,NULL/' resultado_final_union_todo.csv\nawk '!/^&quot;&quot;/' resultado_final_union_todo.csv &gt; resultado_final_union_todo_limpio.csv\nsed -i 's/,&quot;&quot;$/\\,NULL/' resultado_final_union_todo_limpio.csv\n5. Carga a MySQL\nEl archivo limpio fue movido a /var/lib/mysql-files/ y cargado en una tabla SQL con:\n\nsql\nCopiar\nEditar\nLOAD DATA INFILE '/var/lib/mysql-files/resultado_final_union_todo_limpio.csv'\nINTO TABLE union_educacion\nFIELDS TERMINATED BY ','\nOPTIONALLY ENCLOSED BY '&quot;'\nLINES TERMINATED BY '\\n'\nIGNORE 1 LINES\n(AMIE, anio_lectivo, Provincia, Canton, Total_Estudiantes, Total_Docentes);\n6. Validación y Consultas Iniciales\nSe comprobó la carga correcta y la calidad de los datos con consultas SQL, por ejemplo:\nSELECT COUNT(*) FROM union_educacion;\nSELECT Provincia, COUNT(DISTINCT AMIE) as Instituciones FROM union_educacion GROUP BY Provincia;\nSELECT * FROM union_educacion WHERE Total_Estudiantes IS NULL OR Total_Docentes IS NULL LIMIT 10;\n</code></pre>\n\n</div>"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1753394007312_1002732856",
+      "id": "paragraph_1753394007312_1002732856",
+      "dateCreated": "2025-07-24T21:53:27+0000",
+      "dateStarted": "2025-07-24T22:18:33+0000",
+      "dateFinished": "2025-07-24T22:18:36+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:554"
+    },
+    {
+      "text": "%md\n",
+      "user": "anonymous",
+      "dateUpdated": "2025-07-24T22:18:33+0000",
+      "progress": 0,
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {}
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1753395513680_1025543960",
+      "id": "paragraph_1753395513680_1025543960",
+      "dateCreated": "2025-07-24T22:18:33+0000",
+      "status": "READY",
+      "$$hashKey": "object:555"
+    }
+  ],
+  "name": "ProyectoFinal",
+  "id": "2M2G7VSBT",
+  "defaultInterpreterGroup": "spark",
+  "version": "0.10.1",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {},
+  "config": {
+    "isZeppelinNotebookCronEnable": false,
+    "looknfeel": "default",
+    "personalizedMode": "false"
+  },
+  "info": {},
+  "path": "/ProyectoFinal"
+}
